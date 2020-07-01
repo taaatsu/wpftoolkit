@@ -139,6 +139,27 @@ namespace Xceed.Wpf.AvalonDock
     /// </summary>
     protected virtual void OnLayoutChanged( LayoutRoot oldLayout, LayoutRoot newLayout )
     {
+        // oldLayoutとnewLayoutでContentIdを比較し、同じものがあるなら、
+        // newLayoutのContentを書き換えてもいいのではないか？
+        //
+        // クラスを派生してオーバーライドしても機能するが、
+        // DockingManagerはThemeプロパティでスタイルセットを設定する仕組みなので、
+        // 派生でクラスが変わるとスタイルセット内のDockingManagerをターゲットとした設定を
+        // 派生クラス用に作成する必要がでてくる。
+        var oldList = oldLayout.Descendents().OfType<LayoutContent>().ToList();
+        foreach (var n in newLayout.Descendents().OfType<LayoutContent>())
+        {
+            if (n.Content == null)
+            {
+                var machedOld = oldList.FirstOrDefault(o => o.ContentId == n.ContentId);
+                if (machedOld != null)
+                {
+                    n.Content = machedOld.Content;
+                }
+            }
+        }
+        // ここまで
+    
       if( oldLayout != null )
       {
         oldLayout.PropertyChanged -= new PropertyChangedEventHandler( OnLayoutRootPropertyChanged );
