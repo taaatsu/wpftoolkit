@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{72E591D6-8F83-4D8C-8F67-9C325E623234}</ProjectGuid>
+    <ProjectGuid>{01B02C76-FD85-4006-B81D-D1BB8789940F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xceed.Wpf.Toolkit</RootNamespace>
