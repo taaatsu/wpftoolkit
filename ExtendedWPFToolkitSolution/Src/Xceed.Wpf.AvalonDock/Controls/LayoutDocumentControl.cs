@@ -163,7 +163,7 @@ namespace Xceed.Wpf.AvalonDock.Controls
 
     protected override void OnPreviewMouseLeftButtonDown( MouseButtonEventArgs e )
     {
-      //TODO:【外部ライブラリ問題】OriginalSourceがVisualオブジェクトとは限らないハズ。GitHubへ入れるベシ
+      //OriginalSourceがVisualオブジェクトとは限らないハズなので、?演算子を使用
       var parentDockingManager = (e.OriginalSource as Visual)?.FindVisualAncestor<DockingManager>();
       //var parentDockingManager = ((Visual)e.OriginalSource).FindVisualAncestor<DockingManager>();
       if ((this.Model != null) && (this.Model.Root != null) && (this.Model.Root.Manager != null)
@@ -176,7 +176,7 @@ namespace Xceed.Wpf.AvalonDock.Controls
 
     protected override void OnPreviewMouseRightButtonDown( MouseButtonEventArgs e )
     {
-      //TODO:【外部ライブラリ問題】OriginalSourceがVisualオブジェクトとは限らないハズ。GitHubへ入れるベシ
+      //OriginalSourceがVisualオブジェクトとは限らないハズなので、?演算子を使用
       var parentDockingManager = (e.OriginalSource as Visual)?.FindVisualAncestor<DockingManager>();
       //var parentDockingManager = ((Visual)e.OriginalSource).FindVisualAncestor<DockingManager>();
       if ((this.Model != null) && (this.Model.Root != null) && (this.Model.Root.Manager != null)

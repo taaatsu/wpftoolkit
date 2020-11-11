@@ -147,7 +147,7 @@ namespace Xceed.Wpf.AvalonDock
     /// </summary>
     protected virtual void OnLayoutChanged( LayoutRoot oldLayout, LayoutRoot newLayout )
     {
-        //TODO:【外部ライブラリ問題】レイアウトが引き継がれない問題 達郎追加GitHubへ導入済み
+        //レイアウトが引き継がれない問題への対応
         //
         // oldLayoutとnewLayoutでContentIdを比較し、同じものがあるなら、
         // newLayoutのContentを書き換えてもいいのではないか？
@@ -157,6 +157,7 @@ namespace Xceed.Wpf.AvalonDock
         // 派生でクラスが変わるとスタイルセット内のDockingManagerをターゲットとした設定を
         // 派生クラス用に作成する必要がでてくる。
         //
+        // よって、追加処理ココから
         var oldList = oldLayout.Descendents().OfType<LayoutContent>().ToList();
         foreach (var n in newLayout.Descendents().OfType<LayoutContent>())
         {
@@ -169,7 +170,7 @@ namespace Xceed.Wpf.AvalonDock
                 }
             }
         }
-        // ここまで
+        // ココまで
 
 
       if( oldLayout != null )
