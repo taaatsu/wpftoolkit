@@ -394,6 +394,7 @@
     <Compile Include="BusyIndicator\Implementation\Converters\ProgressBarWidthConverter.cs" />
     <Compile Include="ColorPicker\Implementation\ColorPickerTabItem.cs" />
     <Compile Include="Core\Converters\ColorModeToTabItemSelectedConverter.cs" />
+    <Compile Include="Core\GenericTextBlock.cs" />
     <Compile Include="Core\ImageUriExtension.cs" />
     <Compile Include="Core\PackUriExtension.cs" />
     <Compile Include="Core\ResourceDictionary.cs" />
@@ -444,6 +445,7 @@
     <Compile Include="PropertyGrid\Implementation\CategoryGroupStyleSelector.cs" />
     <Compile Include="PropertyGrid\Implementation\Converters\IsDefaultCategoryConverter.cs" />
     <Compile Include="PropertyGrid\Implementation\Converters\IsStringEmptyConverter.cs" />
+    <Compile Include="PropertyGrid\Implementation\Converters\PropertyNameTextTrimmingConverter.cs" />
     <Compile Include="PropertyGrid\Implementation\Editors\CollectionEditor.cs" />
     <Compile Include="PropertyGrid\Implementation\Editors\SourceComboBoxEditor.cs" />
     <Compile Include="PropertyGrid\Implementation\TrimmedTextBlock.cs" />
@@ -740,9 +742,6 @@
     <Resource Include="PropertyGrid\Images\ClearFilter16.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="MultiLineTextEditor\Images\Notes16.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Zoombox\Resources\Zoom.cur" />
     <Resource Include="Zoombox\Resources\ZoomRelative.cur" />
   </ItemGroup>
@@ -947,6 +946,51 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Zoombox\Zoombox.Icon.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="PropertyGrid\Images\SortAscending16_White.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RichTextBoxFormatBar\Images\Bullets_White16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RichTextBoxFormatBar\Images\Numbering_White16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RichTextBoxFormatBar\Images\Bold_White16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RichTextBoxFormatBar\Images\Italic_White16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RichTextBoxFormatBar\Images\Underline_White16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RichTextBoxFormatBar\Images\LeftAlign_White16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RichTextBoxFormatBar\Images\CenterAlign_White16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RichTextBoxFormatBar\Images\RightAlign_White16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RichTextBoxFormatBar\Images\TextHighlightColorPicker_White16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RichTextBoxFormatBar\Images\FontColorPicker_White16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="CollectionControl\Images\Duplicate_White.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="CollectionControl\Images\Delete16_White.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="PropertyGrid\Images\ClearFilter16_White.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="PropertyGrid\Images\ClearFilter16_Green.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

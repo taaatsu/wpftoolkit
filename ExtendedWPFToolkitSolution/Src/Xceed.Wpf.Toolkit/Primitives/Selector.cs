@@ -399,10 +399,13 @@ namespace Xceed.Wpf.Toolkit.Primitives
       if( !this.IsInitialized )
         return;
 
-      if( !VirtualizingStackPanel.GetIsVirtualizing( this )
-        || ( VirtualizingStackPanel.GetIsVirtualizing( this ) && ( newValue != null ) ) )
+      if( this.SelectedItemsOverride == null )
       {
-        this.RemoveUnavailableSelectedItems();
+        if( !VirtualizingStackPanel.GetIsVirtualizing( this )
+        || ( VirtualizingStackPanel.GetIsVirtualizing( this ) && ( newValue != null ) ) )
+        {
+          this.RemoveUnavailableSelectedItems();
+        }
       }
 
       this.UpdateSelectedMemberPathValuesBindings();
@@ -413,7 +416,10 @@ namespace Xceed.Wpf.Toolkit.Primitives
     {
       base.OnItemsChanged( e );
 
-      this.RemoveUnavailableSelectedItems();
+      if( this.ItemsSource == null )
+      {
+        this.RemoveUnavailableSelectedItems();
+      }
     }
 
     // When a DataTemplate includes a CheckComboBox, some bindings are
@@ -479,11 +485,33 @@ namespace Xceed.Wpf.Toolkit.Primitives
         || propertyPath == "." )
         return item;
 
+      if( propertyPath.Contains( "." ) )
+      {
+        object objectValue = item;
+        var parts = propertyPath.Split( new char[] { '.' } );
 
-      PropertyInfo prop = item.GetType().GetProperty( propertyPath );
-      return ( prop != null )
-        ? prop.GetValue( item, null )
-        : null;
+        foreach( var part in parts )
+        {
+          var prop = objectValue.GetType().GetProperty( part );
+          if( prop != null )
+          {
+            objectValue = prop.GetValue( objectValue, null );
+          }
+          else
+          {
+            return null;
+          }
+        }
+
+        return objectValue;
+      }
+      else
+      {
+        var prop = item.GetType().GetProperty( propertyPath );
+        return ( prop != null )
+          ? prop.GetValue( item, null )
+          : null;
+      }      
     }
 
     protected object GetItemValue( object item )
@@ -701,6 +729,14 @@ namespace Xceed.Wpf.Toolkit.Primitives
         item = args.OriginalSource;
       }
 
+      var itemselectionChangingArgs = new ItemSelectionChangingEventArgs( item, !unselected );
+      this.OnItemSelectionChanging( itemselectionChangingArgs );
+      if( itemselectionChangingArgs.Cancel )
+      {
+        this.UpdateSelectorItem( item, unselected, false );
+        return;
+      }
+
       if( unselected )
       {
         while( SelectedItems.Contains( item ) )
@@ -769,6 +805,21 @@ namespace Xceed.Wpf.Toolkit.Primitives
         return;
 
       RaiseEvent( args );
+    }
+
+    /// <summary>
+    /// This method will be called when the "IsSelected" property of an SelectorItem
+    /// has been modified.
+    /// </summary>
+    /// <param name="args"></param>
+    public event EventHandler<ItemSelectionChangingEventArgs> ItemSelectionChanging;
+
+    protected virtual void OnItemSelectionChanging( ItemSelectionChangingEventArgs args )
+    {
+      if( ItemSelectionChanging != null )
+      { 
+         ItemSelectionChanging( this, args );
+      }
     }
 
     /// <summary>
@@ -893,12 +944,12 @@ namespace Xceed.Wpf.Toolkit.Primitives
       this.SelectedItems.CopyTo( _internalSelectedItems, 0 );
     }
 
-    private void UpdateSelectorItem( object item, bool isSelected )
+    private void UpdateSelectorItem( object item, bool isSelected, bool raiseSelectionChangedEvent = true )
     {
       var selectorItem = ItemContainerGenerator.ContainerFromItem( item ) as SelectorItem;
       if( selectorItem != null )
       {
-        selectorItem.IsSelected = isSelected;
+        selectorItem.SetIsSelected( isSelected, raiseSelectionChangedEvent );
       }
     }
 
@@ -1018,6 +1069,29 @@ namespace Xceed.Wpf.Toolkit.Primitives
     {
       Item = item;
       IsSelected = isSelected;
+    }
+  }
+
+  public delegate void ItemSelectionChangingEventHandler( object sender, ItemSelectionChangingEventArgs e ); 
+  public class ItemSelectionChangingEventArgs : CancelEventArgs
+  {
+    public bool NewIsSelected
+    {
+      get;
+      private set;
+    }
+
+    public object Item
+    {
+      get;
+      private set;
+    }
+
+    public ItemSelectionChangingEventArgs( object item, bool isSelected )
+      : base()
+    {
+      this.Item = item;
+      this.NewIsSelected = isSelected;
     }
   }
 }

@@ -2,7 +2,7 @@
 
    Toolkit for WPF
 
-   Copyright (C) 2007-2020 Xceed Software Inc.
+   Copyright (C) 2007-2021 Xceed Software Inc.
 
    This program is provided to you under the terms of the XCEED SOFTWARE, INC.
    COMMUNITY LICENSE AGREEMENT (for non-commercial use) as published at 
@@ -33,7 +33,7 @@
             <xctk:MultiLineTextEditor
                TextWrapping="Wrap" 
                Text="{Binding Path=Review}" 
-               Content="{Binding Text, RelativeSource={RelativeSource Self}}" 
+               Content="{Binding Path=Review}" 
                HorizontalContentAlignment="Left" 
                VerticalContentAlignment="Center"
                Height="24" />

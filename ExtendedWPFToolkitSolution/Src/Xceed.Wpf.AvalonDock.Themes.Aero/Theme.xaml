@@ -37,6 +37,7 @@
   <avalonDockConverters:LayoutItemFromLayoutModelConverter x:Key="LayoutItemFromLayoutModelConverter" />
   <avalonDockConverters:ActivateCommandLayoutItemFromLayoutModelConverter x:Key="ActivateCommandLayoutItemFromLayoutModelConverter" />
   <avalonDockConverters:AnchorableContextMenuHideVisibilityConverter x:Key="AnchorableContextMenuHideVisibilityConverter" />
+  <avalonDockConverters:AnchorableContextMenuAutoHideHeaderConverter x:Key="AnchorableContextMenuAutoHideHeaderConverter" />
 
   <DataTemplate x:Key="DocumentPaneControlContentTemplate">
     <avalonDockControls:LayoutDocumentControl Model="{Binding}" />
@@ -131,7 +132,6 @@
                         CornerRadius="2">
                   <ContentPresenter x:Name="PART_SelectedContentHost"
                                     ContentSource="SelectedContent"
-                                    ContentTemplate="{TemplateBinding ContentTemplate}"
                                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                 </Border>
               </Border>
@@ -324,7 +324,6 @@
                     KeyboardNavigation.TabNavigation="Cycle">
               <ContentPresenter x:Name="PART_SelectedContentHost"
                                 ContentSource="SelectedContent"
-                                ContentTemplate="{TemplateBinding ContentTemplate}"
                                 Margin="{TemplateBinding Padding}"
                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
             </Border>
@@ -509,7 +508,7 @@
                       HorizontalAlignment="Center"
                       Command="{Binding Path=LayoutItem.HideCommand, RelativeSource={RelativeSource TemplatedParent}}"
                       Visibility="{Binding Path=IsEnabled, RelativeSource={RelativeSource Self}, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"
-                      ToolTip="{x:Static avalonDockProperties:Resources.Anchorable_BtnClose_Hint}">
+                      ToolTip="{x:Static avalonDockProperties:Resources.Anchorable_Hide}">
                 <Image x:Name="PART_ImgHidePin"
                        Source="Images/PinClose_Dark.png" >
                 </Image>
@@ -526,6 +525,9 @@
                   <RotateTransform Angle="90" />
                 </Setter.Value>
               </Setter>
+              <Setter Property="ToolTip"
+                      TargetName="PART_AutoHidePin"
+                      Value="{x:Static avalonDockProperties:Resources.Window_Restore}" />
             </DataTrigger>
             <DataTrigger Binding="{Binding Model.CanClose, RelativeSource={RelativeSource Mode=Self}}"
                          Value="True">
@@ -981,7 +983,7 @@
               Command="{Binding Path=DockCommand}" />
     <MenuItem Header="{x:Static avalonDockProperties:Resources.Anchorable_DockAsDocument}"
               Command="{Binding Path=DockAsDocumentCommand}" />
-    <MenuItem Header="{x:Static avalonDockProperties:Resources.Anchorable_AutoHide}"
+    <MenuItem Header="{Binding LayoutElement.IsAutoHidden, Converter={StaticResource AnchorableContextMenuAutoHideHeaderConverter}}"
               Command="{Binding Path=AutoHideCommand}" />
     <MenuItem Header="{x:Static avalonDockProperties:Resources.Document_Close}"
               Command="{Binding Path=CloseCommand}"

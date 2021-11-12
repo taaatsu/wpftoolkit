@@ -2,7 +2,7 @@
 
    Toolkit for WPF
 
-   Copyright (C) 2007-2020 Xceed Software Inc.
+   Copyright (C) 2007-2021 Xceed Software Inc.
 
    This program is provided to you under the terms of the XCEED SOFTWARE, INC.
    COMMUNITY LICENSE AGREEMENT (for non-commercial use) as published at 
@@ -185,8 +185,8 @@
              </TextBlock>
          </StackPanel>
 
-         <GroupBox Header="WrapPanel Toolbox" 
-                   Background="White"
+         <GroupBox Header="WrapPanel Toolbox"
+                   Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"
                    Grid.Row="3" 
                    Visibility="{Binding SelectedIndex, ElementName=layoutCombo, Converter={StaticResource comboBoxToVisibilityConverter}, ConverterParameter=0}" 
                    Margin="10" >
@@ -250,8 +250,8 @@
             </StackPanel>
         </GroupBox>
 
-         <GroupBox Header="RandomPanel Toolbox" 
-                   Background="White"
+         <GroupBox Header="RandomPanel Toolbox"
+                   Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"
                    Grid.Row="3" 
                    Visibility="{Binding SelectedIndex, ElementName=layoutCombo, Converter={StaticResource comboBoxToVisibilityConverter}, ConverterParameter=1}" 
                    Margin="10" >

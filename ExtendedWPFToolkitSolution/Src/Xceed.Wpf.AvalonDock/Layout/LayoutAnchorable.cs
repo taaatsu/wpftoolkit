@@ -415,14 +415,16 @@ namespace Xceed.Wpf.AvalonDock.Layout
 
       RaisePropertyChanging( "IsHidden" );
       RaisePropertyChanging( "IsVisible" );
-      //if (Parent is ILayoutPane)
+
+      this.InitialContainer = this.PreviousContainer as ILayoutPane;
+      this.InitialContainerIndex = this.PreviousContainerIndex;
+      this.InitialContainerId = this.PreviousContainerId;
+
+      var parentAsGroup = this.Parent as ILayoutGroup;
+      this.PreviousContainer = parentAsGroup;
+      if( parentAsGroup != null )
       {
-        var parentAsGroup = Parent as ILayoutGroup;
-        PreviousContainer = parentAsGroup;
-        if( parentAsGroup != null )
-        {
-          PreviousContainerIndex = parentAsGroup.IndexOfChild( this );
-        }
+        this.PreviousContainerIndex = parentAsGroup.IndexOfChild( this );
       }
       if( this.Root != null )
       {
@@ -478,8 +480,13 @@ namespace Xceed.Wpf.AvalonDock.Layout
         }
       }
 
-      PreviousContainer = null;
-      PreviousContainerIndex = -1;
+      // When InitialContainer exists, set it to PreviousContainer in order to dock in expected position.
+      this.PreviousContainer = ( this.InitialContainer != null) ? this.InitialContainer : null;
+      this.PreviousContainerIndex = ( this.InitialContainerIndex != -1 ) ? this.InitialContainerIndex : -1;
+
+      this.InitialContainer = null;
+      this.InitialContainerIndex = -1;
+      this.InitialContainerId = null;
 
       RaisePropertyChanged( "IsVisible" );
       RaisePropertyChanged( "IsHidden" );
@@ -657,10 +664,7 @@ namespace Xceed.Wpf.AvalonDock.Layout
           cnt.PreviousContainer = previousContainer;
         }
 
-        foreach( var anchorableToToggle in parentGroup.Children.ToArray() )
-        {
-          previousContainer.Children.Add( anchorableToToggle );
-        }
+        previousContainer.Children.Add( this );
 
         if( previousContainer.Children.Count > 0 )
         {
@@ -668,7 +672,10 @@ namespace Xceed.Wpf.AvalonDock.Layout
           previousContainer.SelectedContentIndex = previousContainer.Children.IndexOf( this );
         }
 
-        parentSide.Children.Remove( parentGroup );
+        if( parentGroup.Children.Count == 0 )
+        {
+          parentSide.Children.Remove( parentGroup );
+        }
 
         var parent = previousContainer.Parent as LayoutGroupBase;
         while( ( parent != null ) )
@@ -692,8 +699,7 @@ namespace Xceed.Wpf.AvalonDock.Layout
 
         ( ( ILayoutPreviousContainer )newAnchorGroup ).PreviousContainer = parentPane;
 
-        foreach( var anchorableToImport in parentPane.Children.ToArray() )
-          newAnchorGroup.Children.Add( anchorableToImport );
+        newAnchorGroup.Children.Add( this );
 
         //detect anchor side for the pane
         var anchorSide = parentPane.GetSide();
