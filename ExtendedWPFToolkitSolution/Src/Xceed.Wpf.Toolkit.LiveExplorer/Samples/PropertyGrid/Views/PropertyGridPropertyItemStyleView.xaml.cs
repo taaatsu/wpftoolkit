@@ -2,7 +2,7 @@
 
    Toolkit for WPF
 
-   Copyright (C) 2007-2021 Xceed Software Inc.
+   Copyright (C) 2007-2022 Xceed Software Inc.
 
    This program is provided to you under the terms of the XCEED SOFTWARE, INC.
    COMMUNITY LICENSE AGREEMENT (for non-commercial use) as published at 
@@ -15,15 +15,8 @@
 
   ************************************************************************************/
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows;
-using System.Windows.Media;
-using System.Linq;
-using System.Collections.ObjectModel;
-using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 using Xceed.Wpf.Toolkit.PropertyGrid;
+using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace Xceed.Wpf.Toolkit.LiveExplorer.Samples.PropertyGrid.Views
 {
@@ -46,7 +39,7 @@ namespace Xceed.Wpf.Toolkit.LiveExplorer.Samples.PropertyGrid.Views
     {
       var propertyItem = e.PropertyItem as PropertyItem;
       // Parent of top-level properties is the PropertyGrid itself.
-      bool isTopLevelProperty = 
+      bool isTopLevelProperty =
         ( propertyItem.ParentElement is Xceed.Wpf.Toolkit.PropertyGrid.PropertyGrid );
 
       if( isTopLevelProperty && propertyItem.PropertyDescriptor.Name == "Friend" )
@@ -57,10 +50,19 @@ namespace Xceed.Wpf.Toolkit.LiveExplorer.Samples.PropertyGrid.Views
 
     private class Person
     {
-      public string FirstName { get; set; }
-      public string LastName { get; set; }
+      public string FirstName
+      {
+        get; set;
+      }
+      public string LastName
+      {
+        get; set;
+      }
       [ExpandableObject()]
-      public Person Friend { get; set; }
+      public Person Friend
+      {
+        get; set;
+      }
     }
   }
 }

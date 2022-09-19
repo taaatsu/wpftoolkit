@@ -2,7 +2,7 @@
 
    Toolkit for WPF
 
-   Copyright (C) 2007-2020 Xceed Software Inc.
+   Copyright (C) 2007-2022 Xceed Software Inc.
 
    This program is provided to you under the terms of the XCEED SOFTWARE, INC.
    COMMUNITY LICENSE AGREEMENT (for non-commercial use) as published at 
@@ -83,7 +83,7 @@
                                                        KeyboardNavigation.TabIndex="1"
                                                        KeyboardNavigation.DirectionalNavigation="Cycle"/>
               <avalonDockControls:DropDownButton x:Name="MenuDropDownButton"
-                                                 Style="{StaticResource {x:Static ToolBar.ToggleButtonStyleKey}}"
+                                                 Style="{DynamicResource {x:Static ToolBar.ToggleButtonStyleKey}}"
                                                  Focusable="False"
                                                  VerticalAlignment="Center"
                                                  Grid.Column="1">
@@ -473,7 +473,7 @@
 
               <avalonDockControls:DropDownButton x:Name="MenuDropDownButton"
                                                  VerticalAlignment="Center"
-                                                 Style="{StaticResource {x:Static ToolBar.ToggleButtonStyleKey}}"
+                                                 Style="{DynamicResource {x:Static ToolBar.ToggleButtonStyleKey}}"
                                                  Focusable="False"
                                                  Grid.Column="1"
                                                  Padding="-1"
@@ -489,7 +489,7 @@
                       Grid.Column="2"
                       Focusable="False"
                       Padding="-1"
-                      Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                      Style="{DynamicResource {x:Static ToolBar.ButtonStyleKey}}"
                       VerticalAlignment="Center"
                       HorizontalAlignment="Center"
                       Command="{Binding Path=LayoutItem.AutoHideCommand, RelativeSource={RelativeSource TemplatedParent}}"
@@ -503,7 +503,7 @@
                       Grid.Column="3"
                       Focusable="False"
                       Padding="-1"
-                      Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                      Style="{DynamicResource {x:Static ToolBar.ButtonStyleKey}}"
                       VerticalAlignment="Center"
                       HorizontalAlignment="Center"
                       Command="{Binding Path=LayoutItem.HideCommand, RelativeSource={RelativeSource TemplatedParent}}"
@@ -1181,7 +1181,7 @@
                                   ContentTemplateSelector="{Binding Root.Manager.DocumentHeaderTemplateSelector, Mode=OneWay}" />
                 <!-- Close button should be moved out to the container style -->
                 <Button x:Name="DocumentCloseButton"
-                        Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                        Style="{DynamicResource {x:Static ToolBar.ButtonStyleKey}}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center"
                         Grid.Column="2"
@@ -1355,7 +1355,7 @@
 
                       <avalonDockControls:DropDownButton x:Name="ContextMenuDropdownButton"
                                                          shell:WindowChrome.IsHitTestVisibleInChrome="True"
-                                                         Style="{StaticResource {x:Static ToolBar.ToggleButtonStyleKey}}"
+                                                         Style="{DynamicResource {x:Static ToolBar.ToggleButtonStyleKey}}"
                                                          Focusable="False"
                                                          Grid.Column="1"
                                                          VerticalAlignment="Center"
@@ -1376,7 +1376,7 @@
                               shell:WindowChrome.IsHitTestVisibleInChrome="True"
                               Focusable="False"
                               Visibility="{Binding IsMaximized, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource InverseBoolToVisibilityConverter}}"
-                              Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                              Style="{DynamicResource {x:Static ToolBar.ButtonStyleKey}}"
                               Command="{x:Static shell:SystemCommands.MaximizeWindowCommand}"
                               CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}}"
                               ToolTip="{x:Static avalonDockProperties:Resources.Window_Maximize}"
@@ -1391,7 +1391,7 @@
                               shell:WindowChrome.IsHitTestVisibleInChrome="True"
                               Focusable="False"
                               Visibility="{Binding IsMaximized, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BoolToVisibilityConverter}}"
-                              Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                              Style="{DynamicResource {x:Static ToolBar.ButtonStyleKey}}"
                               Command="{x:Static shell:SystemCommands.RestoreWindowCommand}"
                               CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent}}"
                               ToolTip="{x:Static avalonDockProperties:Resources.Window_Restore}"
@@ -1405,7 +1405,7 @@
                       <Button x:Name="PART_PinClose"
                               shell:WindowChrome.IsHitTestVisibleInChrome="True"
                               Focusable="False"
-                              Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                              Style="{DynamicResource {x:Static ToolBar.ButtonStyleKey}}"
                               Visibility="{Binding Path=IsEnabled, RelativeSource={RelativeSource Self}, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"
                               Command="{Binding Path=RootDocumentLayoutItem.CloseCommand, RelativeSource={RelativeSource TemplatedParent}}"
                               ToolTip="{x:Static avalonDockProperties:Resources.Document_Close}"
@@ -1539,7 +1539,7 @@
                       <avalonDockControls:DropDownButton x:Name="SinglePaneContextMenu"
                                                          shell:WindowChrome.IsHitTestVisibleInChrome="True"
                                                          Visibility="{Binding Path=Model.IsSinglePane, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BoolToVisibilityConverter}}"
-                                                         Style="{StaticResource {x:Static ToolBar.ToggleButtonStyleKey}}"
+                                                         Style="{DynamicResource {x:Static ToolBar.ToggleButtonStyleKey}}"
                                                          Focusable="False"
                                                          Grid.Column="1"
                                                          VerticalAlignment="Center"
@@ -1560,7 +1560,7 @@
                               shell:WindowChrome.IsHitTestVisibleInChrome="True"
                               Focusable="False"
                               Visibility="{Binding IsMaximized, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource InverseBoolToVisibilityConverter}}"
-                              Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                              Style="{DynamicResource {x:Static ToolBar.ButtonStyleKey}}"
                               VerticalAlignment="Center"
                               HorizontalAlignment="Center"
                               VerticalContentAlignment="Center"
@@ -1579,7 +1579,7 @@
                               shell:WindowChrome.IsHitTestVisibleInChrome="True"
                               Focusable="False"
                               Visibility="{Binding IsMaximized, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BoolToVisibilityConverter}}"
-                              Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                              Style="{DynamicResource {x:Static ToolBar.ButtonStyleKey}}"
                               VerticalAlignment="Center"
                               HorizontalAlignment="Center"
                               Command="{x:Static shell:SystemCommands.RestoreWindowCommand}"
@@ -1595,7 +1595,7 @@
                       <Button x:Name="PART_PinClose"
                               shell:WindowChrome.IsHitTestVisibleInChrome="True"
                               Focusable="False"
-                              Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                              Style="{DynamicResource {x:Static ToolBar.ButtonStyleKey}}"
                               VerticalAlignment="Center"
                               HorizontalAlignment="Center"
                               Visibility="{Binding Path=IsEnabled, RelativeSource={RelativeSource Self}, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"
@@ -1832,15 +1832,8 @@
             Value="WidthAndHeight" />
     <Setter Property="ResizeMode"
             Value="NoResize" />
-    <!--<Setter Property="shell:WindowChrome.WindowChrome">
-         <Setter.Value>
-            <shell:WindowChrome
-                    ResizeBorderThickness="10"
-                    CaptionHeight="16"
-                    CornerRadius="3,3,3,3"
-                    GlassFrameThickness="4"/>
-         </Setter.Value>
-      </Setter>-->
+    <Setter Property="WindowStyle"
+            Value="None" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type avalonDockControls:NavigatorWindow}">
@@ -1902,7 +1895,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition />
                       </Grid.RowDefinitions>
-                      <TextBlock Text="Active Tool Windows"
+                      <TextBlock Text="{Binding LayoutAnchorablesLabel, Mode=TwoWay}"
                                  FontWeight="Bold"
                                  Margin="0,3,0,4" >
                       </TextBlock>
@@ -1940,7 +1933,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition />
                       </Grid.RowDefinitions>
-                      <TextBlock Text="Active Files"
+                      <TextBlock Text="{Binding LayoutDocumentsLabel, Mode=TwoWay}"
                                  FontWeight="Bold"
                                  Margin="0,3,0,4" >
                       </TextBlock>

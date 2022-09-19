@@ -2,7 +2,7 @@
    
    Toolkit for WPF
 
-   Copyright (C) 2007-2020 Xceed Software Inc.
+   Copyright (C) 2007-2022 Xceed Software Inc.
 
    This program is provided to you under the terms of the XCEED SOFTWARE, INC.
    COMMUNITY LICENSE AGREEMENT (for non-commercial use) as published at 
@@ -37,7 +37,7 @@ using System.Windows.Markup;
 
 [assembly: AssemblyCompany("Xceed Software Inc.")]
 [assembly: AssemblyProduct( "Xceed Toolkit for WPF" )]
-[assembly: AssemblyCopyright( "Copyright (C) Xceed Software Inc. 2007-2021" )]
+[assembly: AssemblyCopyright( "Copyright (C) Xceed Software Inc. 2007-2022" )]
 [assembly: AssemblyCulture( "" )]
 
 
@@ -58,9 +58,12 @@ using System.Windows.Markup;
 
 
 
+
+
+
 //In order to begin building localizable applications, set 
 //<UICulture>CultureYouAreCodingWith</UICulture> in your .csproj file
-//inside a <PropertyGroup>.  For example, if you are using US english
+//inside a <PropertyGroup>.  For example, if you are using US English
 //in your source files, set the <UICulture> to en-US.  Then uncomment
 //the NeutralResourceLanguage attribute below.  Update the "en-US" in
 //the line below to match the UICulture setting in the project file.
@@ -99,7 +102,11 @@ using System.Windows.Markup;
 
 #pragma warning disable 1699
 [assembly: AssemblyDelaySign( false )]
+#if NETCORE || NET5
+[assembly: AssemblyKeyFile( @"..\..\..\..\sn.snk" )]
+#else
 [assembly: AssemblyKeyFile( @"..\..\sn.snk" )]
+#endif
 [assembly: AssemblyKeyName( "" )]
 #pragma warning restore 1699
 

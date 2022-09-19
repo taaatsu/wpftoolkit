@@ -2,7 +2,7 @@
    
    Toolkit for WPF
 
-   Copyright (C) 2007-2020 Xceed Software Inc.
+   Copyright (C) 2007-2022 Xceed Software Inc.
 
    This program is provided to you under the terms of the XCEED SOFTWARE, INC.
    COMMUNITY LICENSE AGREEMENT (for non-commercial use) as published at 
@@ -17,14 +17,15 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
-using System.Windows;
-using System.Diagnostics;
-using Xceed.Wpf.AvalonDock.Layout;
 using System.Windows.Media;
 using System.Windows.Threading;
+using Xceed.Wpf.AvalonDock.Layout;
 
 namespace Xceed.Wpf.AvalonDock.Controls
 {
@@ -56,7 +57,40 @@ namespace Xceed.Wpf.AvalonDock.Controls
         _windowHandler.Attach();
 
         if( Application.Current != null )
-          Application.Current.Exit += new ExitEventHandler( Current_Exit );
+        {
+          var currentDispatcher = Application.Current.Dispatcher;
+          if( currentDispatcher != null )
+          {
+            if( currentDispatcher.CheckAccess() )
+            {
+              Application.Current.Exit += new ExitEventHandler( Current_Exit );
+            }
+            else
+            {
+              var disableProcessingCountFieldInfo = typeof( Dispatcher ).GetField( "_disableProcessingCount", BindingFlags.Instance | BindingFlags.NonPublic );
+              if( disableProcessingCountFieldInfo != null )
+              {
+                var disableProcessingCountFieldInfoValue = disableProcessingCountFieldInfo.GetValue( currentDispatcher );
+                if( ( disableProcessingCountFieldInfoValue != null ) && ( disableProcessingCountFieldInfoValue is int ) )
+                {
+                  var action = new Action( () => Application.Current.Exit += new ExitEventHandler( Current_Exit ) );
+
+                  if( ( int )disableProcessingCountFieldInfoValue == 0 )
+                  {
+                    // in sync
+                    currentDispatcher.Invoke( DispatcherPriority.Normal, action );
+                  }
+                  else
+                  {
+                    // in async.
+                    currentDispatcher.BeginInvoke( DispatcherPriority.Normal, action );
+                  }
+                }
+              }
+            }
+          }
+
+        }
       }
 
       manager.PreviewGotKeyboardFocus += new KeyboardFocusChangedEventHandler( manager_PreviewGotKeyboardFocus );

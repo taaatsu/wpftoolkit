@@ -2,7 +2,7 @@
    
    Toolkit for WPF
 
-   Copyright (C) 2007-2020 Xceed Software Inc.
+   Copyright (C) 2007-2022 Xceed Software Inc.
 
    This program is provided to you under the terms of the XCEED SOFTWARE, INC.
    COMMUNITY LICENSE AGREEMENT (for non-commercial use) as published at 
@@ -31,6 +31,7 @@ using System.Collections.ObjectModel;
 using System.Collections;
 using Xceed.Wpf.Toolkit.Core.Utilities;
 using System.Linq.Expressions;
+using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace Xceed.Wpf.Toolkit.PropertyGrid
 {
@@ -97,7 +98,7 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid
     {
       get
       {
-        return (DataTemplate)GetValue( CategoryGroupHeaderTemplateProperty );
+        return ( DataTemplate )GetValue( CategoryGroupHeaderTemplateProperty );
       }
       set
       {
@@ -408,7 +409,7 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid
     {
       get
       {
-        return (double)GetValue( PropertyNameLeftPaddingProperty );
+        return ( double )GetValue( PropertyNameLeftPaddingProperty );
       }
       set
       {
@@ -441,7 +442,7 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid
     {
       get
       {
-        return (_containerHelper != null) ? _containerHelper.Properties : null;
+        return ( _containerHelper != null ) ? _containerHelper.Properties : null;
       }
     }
 
@@ -467,8 +468,14 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid
     /// </summary>
     public Style PropertyContainerStyle
     {
-      get { return ( Style )GetValue( PropertyContainerStyleProperty ); }
-      set { SetValue( PropertyContainerStyleProperty, value ); }
+      get
+      {
+        return ( Style )GetValue( PropertyContainerStyleProperty );
+      }
+      set
+      {
+        SetValue( PropertyContainerStyleProperty, value );
+      }
     }
 
     private static void OnPropertyContainerStyleChanged( DependencyObject o, DependencyPropertyChangedEventArgs e )
@@ -493,7 +500,7 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid
     {
       get
       {
-        return (PropertyDefinitionCollection)GetValue( PropertyDefinitionsProperty );
+        return ( PropertyDefinitionCollection )GetValue( PropertyDefinitionsProperty );
       }
       set
       {
@@ -505,7 +512,7 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid
     {
       var owner = o as PropertyGrid;
       if( owner != null )
-        owner.OnPropertyDefinitionsChanged( (PropertyDefinitionCollection)e.OldValue, (PropertyDefinitionCollection)e.NewValue );
+        owner.OnPropertyDefinitionsChanged( ( PropertyDefinitionCollection )e.OldValue, ( PropertyDefinitionCollection )e.NewValue );
     }
 
     protected virtual void OnPropertyDefinitionsChanged( PropertyDefinitionCollection oldValue, PropertyDefinitionCollection newValue )
@@ -556,7 +563,7 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid
     {
       var propertyGrid = o as PropertyGrid;
       if( propertyGrid != null )
-        propertyGrid.OnIsReadOnlyChanged( (bool)e.OldValue, (bool)e.NewValue );
+        propertyGrid.OnIsReadOnlyChanged( ( bool )e.OldValue, ( bool )e.NewValue );
     }
 
     protected virtual void OnIsReadOnlyChanged( bool oldValue, bool newValue )
@@ -669,7 +676,7 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid
       PropertyGrid propertyGrid = o as PropertyGrid;
       if( propertyGrid != null )
       {
-        if( (propertyGrid.SelectedObject is FrameworkElement) && ( String.IsNullOrEmpty( ( String )baseValue ) ))
+        if( ( propertyGrid.SelectedObject is FrameworkElement ) && ( String.IsNullOrEmpty( ( String )baseValue ) ) )
           return "<no name>";
       }
 
@@ -732,7 +739,7 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid
       if( newValue != null )
         newValue.IsSelected = true;
 
-      this.SelectedProperty = ( (newValue != null) && (_containerHelper != null) ) ? _containerHelper.ItemFromContainer( newValue ) : null;
+      this.SelectedProperty = ( ( newValue != null ) && ( _containerHelper != null ) ) ? _containerHelper.ItemFromContainer( newValue ) : null;
 
       RaiseEvent( new RoutedPropertyChangedEventArgs<PropertyItemBase>( oldValue, newValue, PropertyGrid.SelectedPropertyItemChangedEvent ) );
     }
@@ -752,8 +759,14 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid
     /// </summary>
     public object SelectedProperty
     {
-      get { return ( object )GetValue( SelectedPropertyProperty ); }
-      set { SetValue( SelectedPropertyProperty, value ); }
+      get
+      {
+        return ( object )GetValue( SelectedPropertyProperty );
+      }
+      set
+      {
+        SetValue( SelectedPropertyProperty, value );
+      }
     }
 
     private static void OnSelectedPropertyChanged( DependencyObject sender, DependencyPropertyChangedEventArgs args )
@@ -913,7 +926,7 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid
     public PropertyGrid()
     {
       _propertyDefinitionsListener = new WeakEventListener<NotifyCollectionChangedEventArgs>( this.OnPropertyDefinitionsCollectionChanged );
-      _editorDefinitionsListener = new WeakEventListener<NotifyCollectionChangedEventArgs>( this.OnEditorDefinitionsCollectionChanged);     
+      _editorDefinitionsListener = new WeakEventListener<NotifyCollectionChangedEventArgs>( this.OnEditorDefinitionsCollectionChanged );
       UpdateContainerHelper();
 #if VS2008
         EditorDefinitions = new EditorDefinitionCollection();
@@ -921,7 +934,7 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid
       this.SetCurrentValue( PropertyGrid.EditorDefinitionsProperty, new EditorDefinitionCollection() );
 #endif
 
-      PropertyDefinitions = new PropertyDefinitionCollection();      
+      PropertyDefinitions = new PropertyDefinitionCollection();
       this.PropertyValueChanged += this.PropertyGrid_PropertyValueChanged;
 
       AddHandler( PropertyItemBase.ItemSelectionChangedEvent, new RoutedEventHandler( OnItemSelectionChanged ) );
@@ -971,10 +984,10 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid
       var textBox = e.OriginalSource as TextBox;
 
       //hitting enter on textbox will update value of underlying source if UpdateTextBoxSourceOnEnterKey is true
-      if( (this.SelectedPropertyItem != null) 
-          && (e.Key == Key.Enter)
+      if( ( this.SelectedPropertyItem != null )
+          && ( e.Key == Key.Enter )
           && this.UpdateTextBoxSourceOnEnterKey
-          && (textBox != null)
+          && ( textBox != null )
           && !textBox.AcceptsReturn )
       {
         BindingExpression be = textBox.GetBindingExpression( TextBox.TextProperty );
@@ -996,7 +1009,7 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid
     }
 
 
-#endregion //Base Class Overrides
+    #endregion //Base Class Overrides
 
     #region Event Handlers
 
@@ -1053,10 +1066,12 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid
         }
 
         var parentPropertyItem = modifiedPropertyItem.ParentNode as PropertyItem;
-        if( ( parentPropertyItem != null ) && parentPropertyItem.IsExpandable )
+        while( ( parentPropertyItem != null ) && parentPropertyItem.IsExpandable )
         {
           //Rebuild Editor for parent propertyItem if one of its sub-propertyItem have changed.
           this.RebuildPropertyItemEditor( parentPropertyItem );
+
+          parentPropertyItem = parentPropertyItem.ParentNode as PropertyItem;
         }
       }
     }
@@ -1079,6 +1094,9 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid
     #endregion //Commands
 
     #region Methods
+
+
+
 
 
 
@@ -1175,7 +1193,7 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid
 
     private ScrollViewer GetScrollViewer()
     {
-      if( (_containerHelper != null) && (_containerHelper.ChildrenItemsControl != null) )
+      if( ( _containerHelper != null ) && ( _containerHelper.ChildrenItemsControl != null ) )
       {
         return TreeHelper.FindChild<ScrollViewer>( _containerHelper.ChildrenItemsControl );
       }
@@ -1247,10 +1265,10 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid
     {
       if( _dragThumb != null )
       {
-      if( IsCategorized )
-        _dragThumb.Margin = new Thickness( 6, 0, 0, 0 );
-      else
-        _dragThumb.Margin = new Thickness( -1, 0, 0, 0 );
+        if( IsCategorized )
+          _dragThumb.Margin = new Thickness( 6, 0, 0, 0 );
+        else
+          _dragThumb.Margin = new Thickness( -1, 0, 0, 0 );
       }
     }
 
@@ -1359,6 +1377,12 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid
     public event IsPropertyBrowsableHandler IsPropertyBrowsable;
 
     #endregion
+
+
+
+
+
+
 
 
 
@@ -1522,11 +1546,11 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid
 
     FilterInfo IPropertyContainer.FilterInfo
     {
-      get 
+      get
       {
         return new FilterInfo()
         {
-          Predicate = this.CreateFilter(this.Filter),
+          Predicate = this.CreateFilter( this.Filter ),
           InputString = this.Filter
         };
       }
@@ -1544,9 +1568,19 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid
     {
       get
       {
+        var categoryPropertyOrderAttribute = TypeDescriptor.GetAttributes( this.SelectedObject )
+                                             .OfType<CategoryPropertyOrderAttribute>()
+                                             .FirstOrDefault();
+
+        if( this.IsCategorized
+          && ( categoryPropertyOrderAttribute != null )
+          && ( categoryPropertyOrderAttribute.CategoryPropertyOrder == CategoryPropertyOrderEnum.Declaration ) )
+          return false;
+
         return true;
       }
     }
+
 
 
     bool? IPropertyContainer.IsPropertyVisible( PropertyDescriptor pd )
@@ -1684,6 +1718,8 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid
   }
 
   #endregion
+
+
 
 
 

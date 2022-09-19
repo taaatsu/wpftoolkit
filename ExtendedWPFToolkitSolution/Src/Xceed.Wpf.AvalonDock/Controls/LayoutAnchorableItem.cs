@@ -2,7 +2,7 @@
    
    Toolkit for WPF
 
-   Copyright (C) 2007-2020 Xceed Software Inc.
+   Copyright (C) 2007-2022 Xceed Software Inc.
 
    This program is provided to you under the terms of the XCEED SOFTWARE, INC.
    COMMUNITY LICENSE AGREEMENT (for non-commercial use) as published at 
@@ -16,11 +16,11 @@
   ***********************************************************************************/
 
 using System;
-using Xceed.Wpf.AvalonDock.Layout;
-using System.Windows.Input;
 using System.Windows;
-using Xceed.Wpf.AvalonDock.Commands;
 using System.Windows.Data;
+using System.Windows.Input;
+using Xceed.Wpf.AvalonDock.Commands;
+using Xceed.Wpf.AvalonDock.Layout;
 
 namespace Xceed.Wpf.AvalonDock.Controls
 {
@@ -331,26 +331,50 @@ namespace Xceed.Wpf.AvalonDock.Controls
       base.InitDefaultCommands();
     }
 
+    protected override void ClearDefaultCommands()
+    {
+      _defaultHideCommand = null;
+      _defaultAutoHideCommand = null;
+      _defaultDockCommand = null;
+
+      base.ClearDefaultCommands();
+    }
+
     protected override void ClearDefaultBindings()
     {
-      if( HideCommand == _defaultHideCommand )
+      if( this.HideCommand == _defaultHideCommand )
+      {
         BindingOperations.ClearBinding( this, HideCommandProperty );
-      if( AutoHideCommand == _defaultAutoHideCommand )
+        this.HideCommand = null;
+      }
+      if( this.AutoHideCommand == _defaultAutoHideCommand )
+      {
         BindingOperations.ClearBinding( this, AutoHideCommandProperty );
-      if( DockCommand == _defaultDockCommand )
+        this.AutoHideCommand = null;
+      }
+      if( this.DockCommand == _defaultDockCommand )
+      {
         BindingOperations.ClearBinding( this, DockCommandProperty );
+        this.DockCommand = null;
+      }
 
       base.ClearDefaultBindings();
     }
 
     protected override void SetDefaultBindings()
     {
-      if( HideCommand == null )
+      if( this.HideCommand == null )
+      {
         this.SetCurrentValue( LayoutAnchorableItem.HideCommandProperty, _defaultHideCommand );
-      if( AutoHideCommand == null )
+      }
+      if( this.AutoHideCommand == null )
+      {
         this.SetCurrentValue( LayoutAnchorableItem.AutoHideCommandProperty, _defaultAutoHideCommand );
-      if( DockCommand == null )
+      }
+      if( this.DockCommand == null )
+      {
         this.SetCurrentValue( LayoutAnchorableItem.DockCommandProperty, _defaultDockCommand );
+      }
 
       this.SetCurrentValue( LayoutAnchorableItem.VisibilityProperty, _anchorable.IsVisible ? Visibility.Visible : System.Windows.Visibility.Hidden );
       base.SetDefaultBindings();

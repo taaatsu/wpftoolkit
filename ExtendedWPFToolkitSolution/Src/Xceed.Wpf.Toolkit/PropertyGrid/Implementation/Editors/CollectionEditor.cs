@@ -2,7 +2,7 @@
    
    Toolkit for WPF
 
-   Copyright (C) 2007-2020 Xceed Software Inc.
+   Copyright (C) 2007-2022 Xceed Software Inc.
 
    This program is provided to you under the terms of the XCEED SOFTWARE, INC.
    COMMUNITY LICENSE AGREEMENT (for non-commercial use) as published at 
@@ -16,9 +16,7 @@
   ***********************************************************************************/
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using Xceed.Wpf.Toolkit.Core.Utilities;
 
@@ -39,7 +37,7 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid.Editors
     protected override void SetControlProperties( PropertyItem propertyItem )
     {
 
-      var propertyGrid = propertyItem.ParentElement as PropertyGrid;
+      var propertyGrid = this.GetParentPropertyGrid( propertyItem.ParentElement );
       if( propertyGrid != null )
       {
         // Use the PropertyGrid.EditorDefinitions for the CollectionControl's propertyGrid.
@@ -47,6 +45,25 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid.Editors
 
         this.Editor.CollectionUpdated += this.Editor_CollectionUpdated;
       }
+    }
+
+    private PropertyGrid GetParentPropertyGrid( FrameworkElement element )
+    {
+      var propertyGrid = element as PropertyGrid;
+      if( propertyGrid == null )
+      {
+        var parentPropertyItem = element as PropertyItem;
+        while( ( parentPropertyItem != null ) && ( propertyGrid == null ) )
+        {
+          propertyGrid = parentPropertyItem.ParentElement as PropertyGrid;
+          if( propertyGrid == null )
+          {
+            parentPropertyItem = parentPropertyItem.ParentElement as PropertyItem;
+          }
+        }
+      }
+
+      return propertyGrid;
     }
 
     private void Editor_CollectionUpdated( object sender, RoutedEventArgs e )
@@ -57,13 +74,13 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid.Editors
         var propertyItem = propertyGridEditorCollectionControl.DataContext as PropertyItem;
         if( propertyItem != null )
         {
-          var propertyGrid = propertyItem.ParentElement as PropertyGrid;
+          var propertyGrid = this.GetParentPropertyGrid( propertyItem.ParentElement );
           if( propertyGrid != null )
           {
             propertyGrid.RaiseEvent( new PropertyValueChangedEventArgs( PropertyGrid.PropertyValueChangedEvent, propertyItem, null, propertyItem.Instance ) );
           }
         }
-      }      
+      }
     }
 
     protected override void ResolveValueBinding( PropertyItem propertyItem )
@@ -76,11 +93,11 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid.Editors
       {
         Editor.NewItemTypes = new List<Type>() { type.GetElementType() };
       }
-      else 
+      else
       {
-        if( (propertyItem.DescriptorDefinition != null)
-            && (propertyItem.DescriptorDefinition.NewItemTypes != null)
-            && (propertyItem.DescriptorDefinition.NewItemTypes.Count > 0) )
+        if( ( propertyItem.DescriptorDefinition != null )
+            && ( propertyItem.DescriptorDefinition.NewItemTypes != null )
+            && ( propertyItem.DescriptorDefinition.NewItemTypes.Count > 0 ) )
         {
           Editor.NewItemTypes = propertyItem.DescriptorDefinition.NewItemTypes;
         }
@@ -88,7 +105,7 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid.Editors
         {
           //Check if we have a Dictionary
           var dictionaryTypes = ListUtilities.GetDictionaryItemsType( type );
-          if( (dictionaryTypes != null) && (dictionaryTypes.Length == 2) )
+          if( ( dictionaryTypes != null ) && ( dictionaryTypes.Length == 2 ) )
           {
             // A Dictionary contains KeyValuePair that can't be edited.
             // We need to create EditableKeyValuePairs.
@@ -100,7 +117,7 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid.Editors
           {
             //Check if we have a list
             var listType = ListUtilities.GetListItemType( type );
-            if( listType != null  )
+            if( listType != null )
             {
               Editor.NewItemTypes = new List<Type>() { listType };
             }

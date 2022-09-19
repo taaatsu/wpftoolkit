@@ -2,7 +2,7 @@
    
    Toolkit for WPF
 
-   Copyright (C) 2007-2020 Xceed Software Inc.
+   Copyright (C) 2007-2022 Xceed Software Inc.
 
    This program is provided to you under the terms of the XCEED SOFTWARE, INC.
    COMMUNITY LICENSE AGREEMENT (for non-commercial use) as published at 
@@ -34,7 +34,6 @@ using Xceed.Wpf.AvalonDock.Themes;
 using System.Diagnostics;
 using System.Windows.Media;
 using System.Windows.Controls.Primitives;
-using System.Globalization;
 
 namespace Xceed.Wpf.AvalonDock
 {
@@ -57,7 +56,7 @@ namespace Xceed.Wpf.AvalonDock
     private NavigatorWindow _navigatorWindow = null;
 
     internal bool SuspendDocumentsSourceBinding = false;
-    internal bool SuspendAnchorablesSourceBinding = false;    
+    internal bool SuspendAnchorablesSourceBinding = false;
 
     #endregion
 
@@ -270,88 +269,6 @@ namespace Xceed.Wpf.AvalonDock
       {
         SetValue( LayoutUpdateStrategyProperty, value );
       }
-    }
-
-    #endregion
-
-    #region DocumentPaneTemplate
-
-    /// <summary>
-    /// DocumentPaneTemplate Dependency Property
-    /// </summary>
-    public static readonly DependencyProperty DocumentPaneTemplateProperty = DependencyProperty.Register( "DocumentPaneTemplate", typeof( ControlTemplate ), typeof( DockingManager ),
-            new FrameworkPropertyMetadata( ( ControlTemplate )null, new PropertyChangedCallback( OnDocumentPaneTemplateChanged ) ) );
-
-    /// <summary>
-    /// Gets or sets the DocumentPaneDataTemplate property.  This dependency property 
-    /// indicates .
-    /// </summary>
-    public ControlTemplate DocumentPaneTemplate
-    {
-      get
-      {
-        return ( ControlTemplate )GetValue( DocumentPaneTemplateProperty );
-      }
-      set
-      {
-        SetValue( DocumentPaneTemplateProperty, value );
-      }
-    }
-
-    /// <summary>
-    /// Handles changes to the DocumentPaneTemplate property.
-    /// </summary>
-    private static void OnDocumentPaneTemplateChanged( DependencyObject d, DependencyPropertyChangedEventArgs e )
-    {
-      ( ( DockingManager )d ).OnDocumentPaneTemplateChanged( e );
-    }
-
-    /// <summary>
-    /// Provides derived classes an opportunity to handle changes to the DocumentPaneTemplate property.
-    /// </summary>
-    protected virtual void OnDocumentPaneTemplateChanged( DependencyPropertyChangedEventArgs e )
-    {
-    }
-
-    #endregion
-
-    #region AnchorablePaneTemplate
-
-    /// <summary>
-    /// AnchorablePaneTemplate Dependency Property
-    /// </summary>
-    public static readonly DependencyProperty AnchorablePaneTemplateProperty = DependencyProperty.Register( "AnchorablePaneTemplate", typeof( ControlTemplate ), typeof( DockingManager ),
-            new FrameworkPropertyMetadata( ( ControlTemplate )null, new PropertyChangedCallback( OnAnchorablePaneTemplateChanged ) ) );
-
-    /// <summary>
-    /// Gets or sets the AnchorablePaneTemplate property.  This dependency property 
-    /// indicates ....
-    /// </summary>
-    public ControlTemplate AnchorablePaneTemplate
-    {
-      get
-      {
-        return ( ControlTemplate )GetValue( AnchorablePaneTemplateProperty );
-      }
-      set
-      {
-        SetValue( AnchorablePaneTemplateProperty, value );
-      }
-    }
-
-    /// <summary>
-    /// Handles changes to the AnchorablePaneDataTemplate property.
-    /// </summary>
-    private static void OnAnchorablePaneTemplateChanged( DependencyObject d, DependencyPropertyChangedEventArgs e )
-    {
-      ( ( DockingManager )d ).OnAnchorablePaneTemplateChanged( e );
-    }
-
-    /// <summary>
-    /// Provides derived classes an opportunity to handle changes to the AnchorablePaneDataTemplate property.
-    /// </summary>
-    protected virtual void OnAnchorablePaneTemplateChanged( DependencyPropertyChangedEventArgs e )
-    {
     }
 
     #endregion
@@ -1183,14 +1100,18 @@ namespace Xceed.Wpf.AvalonDock
     {
       var wrToRemove = _logicalChildren.FirstOrDefault( ch => ch.GetValueOrDefault<object>() == element );
       if( wrToRemove != null )
+      {
         _logicalChildren.Remove( wrToRemove );
-      RemoveLogicalChild( element );
+      }
+      this.RemoveLogicalChild( element );
     }
 
     private void ClearLogicalChildrenList()
     {
       foreach( var child in _logicalChildren.Select( ch => ch.GetValueOrDefault<object>() ).ToArray() )
-        RemoveLogicalChild( child );
+      {
+        this.RemoveLogicalChild( child );
+      }
       _logicalChildren.Clear();
     }
 
@@ -1246,6 +1167,54 @@ namespace Xceed.Wpf.AvalonDock
       if( e.NewValue != null )
         InternalAddLogicalChild( e.NewValue );
 
+    }
+
+    #endregion
+
+    #region AutoHideWindowClosingTimer
+
+    /// <summary>
+    /// AutoHideWindowClosingTimer Dependency Property
+    /// </summary>
+    public static readonly DependencyProperty AutoHideWindowClosingTimerProperty = DependencyProperty.Register( "AutoHideWindowClosingTimer", typeof( int ), typeof( DockingManager ),
+            new FrameworkPropertyMetadata( ( int )1500, new PropertyChangedCallback( OnAutoHideWindowClosingTimerChanged ), new CoerceValueCallback( CoerceAutoHideWindowClosingTimer ) ) );
+
+
+    /// <summary>
+    /// Gets or sets the AutoHideWindowClosingTimer property.  This dependency property 
+    /// indicates how long it will take to close the AutoHideWindow when not moused over or active.
+    /// </summary>
+    public int AutoHideWindowClosingTimer
+    {
+      get
+      {
+        return ( int )GetValue( AutoHideWindowClosingTimerProperty );
+      }
+      set
+      {
+        SetValue( AutoHideWindowClosingTimerProperty, value );
+      }
+    }
+
+    private static void OnAutoHideWindowClosingTimerChanged( DependencyObject d, DependencyPropertyChangedEventArgs e )
+    {
+      ( ( DockingManager )d ).OnAutoHideWindowClosingTimerChanged( e );
+    }
+
+    protected virtual void OnAutoHideWindowClosingTimerChanged( DependencyPropertyChangedEventArgs e )
+    {
+      if( _autoHideWindowManager != null )
+      {
+        _autoHideWindowManager.UpdateCloseTimerInterval( ( int )e.NewValue );
+      }
+    }
+
+    private static object CoerceAutoHideWindowClosingTimer( DependencyObject d, object value )
+    {
+      if( ( ( int )value ) >= 0 )
+        return value;
+
+      return 1500;
     }
 
     #endregion
@@ -2041,7 +2010,7 @@ namespace Xceed.Wpf.AvalonDock
             else
             {
               var lac = current as LayoutAnchorableControl;
-              if( ( lac != null ) && ( this.AnchorableContextMenu != null) )
+              if( ( lac != null ) && ( this.AnchorableContextMenu != null ) )
               {
                 this.AnchorableContextMenu.PlacementTarget = lac;
                 this.AnchorableContextMenu.Placement = PlacementMode.Relative;
@@ -2059,6 +2028,11 @@ namespace Xceed.Wpf.AvalonDock
     #endregion
 
     #region Public Methods
+
+    public virtual NavigatorWindow CreateNavigatorWindow()
+    {
+      return new NavigatorWindow( this );
+    }
 
     /// <summary>
     /// Return the LayoutItem wrapper for the content passed as argument
@@ -2149,6 +2123,9 @@ namespace Xceed.Wpf.AvalonDock
           //Owner = Window.GetWindow(this) 
         };
         newFW.SetParentToMainWindowOf( this );
+
+        var mainWindow = Window.GetWindow( this );
+        newFW.InputBindings.AddRange( mainWindow.InputBindings );
 
         var paneForExtensions = modelFW.RootPanel.Descendents().OfType<LayoutAnchorablePane>().FirstOrDefault();
         if( paneForExtensions != null )
@@ -2257,7 +2234,7 @@ namespace Xceed.Wpf.AvalonDock
 
     internal void StartDraggingFloatingWindowForContent( LayoutContent contentModel, bool startDrag = true )
     {
-      if( ( contentModel == null) || !contentModel.CanFloat )
+      if( ( contentModel == null ) || !contentModel.CanFloat )
         return;
 
       var fwc = this.CreateFloatingWindow( contentModel, false );
@@ -2396,8 +2373,10 @@ namespace Xceed.Wpf.AvalonDock
       var model = anchorable as LayoutAnchorable;
       if( model != null )
       {
-        model.CloseAnchorable();
-        this.RemoveViewFromLogicalChild( anchorable );
+        if( model.CloseAnchorable() )
+        {
+          this.RemoveViewFromLogicalChild( anchorable );
+        }
       }
     }
 
@@ -2440,11 +2419,9 @@ namespace Xceed.Wpf.AvalonDock
     {
       if( _navigatorWindow == null )
       {
-        _navigatorWindow = new NavigatorWindow( this )
-        {
-          Owner = Window.GetWindow( this ),
-          WindowStartupLocation = WindowStartupLocation.CenterOwner
-        };
+        _navigatorWindow = this.CreateNavigatorWindow();
+        _navigatorWindow.Owner = Window.GetWindow( this );
+        _navigatorWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
       }
 
       _navigatorWindow.ShowDialog();
@@ -2549,9 +2526,16 @@ namespace Xceed.Wpf.AvalonDock
           //fw.Owner = null;
           fw.SetParentWindowToNull();
           fw.KeepContentVisibleOnClose = true;
-          fw.Close();
+
+          // Added Dispatcher to prevent InvalidOperationException issue in reference to bug case 
+          // DevOps #2106
+          Dispatcher.BeginInvoke( new Action( () =>
+          {
+            fw.Close();
+          } ), DispatcherPriority.Send );
+
         }
-         _fwList.Clear();
+        _fwList.Clear();
 
         DestroyOverlayWindow();
         FocusElementManager.FinalizeFocusManagement( this );
@@ -2633,14 +2617,11 @@ namespace Xceed.Wpf.AvalonDock
       _suspendLayoutItemCreation = true;
       foreach( var documentContentToImport in listOfDocumentsToImport )
       {
-
-        //documentPane.Children.Add(new LayoutDocument() { Content = documentToImport });
-
         var documentToImport = new LayoutDocument()
         {
           Content = documentContentToImport,
           ContentId = Guid.NewGuid().ToString()
-      };
+        };
 
         bool added = false;
         if( LayoutUpdateStrategy != null )
@@ -2674,7 +2655,7 @@ namespace Xceed.Wpf.AvalonDock
       }
     }
 
-    private void documentsSourceElementsChanged( object sender, NotifyCollectionChangedEventArgs e )
+    private void DocumentsSourceElementsChanged( object sender, NotifyCollectionChangedEventArgs e )
     {
       if( Layout == null )
         return;
@@ -2690,12 +2671,16 @@ namespace Xceed.Wpf.AvalonDock
         if( e.OldItems != null )
         {
           var documentsToRemove = Layout.Descendents().OfType<LayoutDocument>().Where( d => e.OldItems.Contains( d.Content ) ).ToArray();
-          foreach( var documentToRemove in documentsToRemove )
+          for( int i = 0; i < documentsToRemove.Count(); ++i )
           {
-            //documentToRemove.Content = null;
-            ( documentToRemove.Parent as ILayoutContainer ).RemoveChild(
-                documentToRemove );
+            var documentToRemove = documentsToRemove[ i ];
+
+            ( documentToRemove.Parent as ILayoutContainer ).RemoveChild( documentToRemove );
             this.RemoveViewFromLogicalChild( documentToRemove );
+
+            this.RemoveDocumentLayoutItem( documentToRemove );
+
+            documentToRemove.Content = null;
           }
         }
       }
@@ -2769,9 +2754,11 @@ namespace Xceed.Wpf.AvalonDock
         var documentsToRemove = Layout.Descendents().OfType<LayoutDocument>().ToArray();
         foreach( var documentToRemove in documentsToRemove )
         {
-          ( documentToRemove.Parent as ILayoutContainer ).RemoveChild(
-              documentToRemove );
+          ( documentToRemove.Parent as ILayoutContainer ).RemoveChild( documentToRemove );
           this.RemoveViewFromLogicalChild( documentToRemove );
+          this.RemoveDocumentLayoutItem( documentToRemove );
+
+          documentToRemove.Content = null;
         }
       }
 
@@ -2794,8 +2781,7 @@ namespace Xceed.Wpf.AvalonDock
 
       foreach( var documentToRemove in documentsToRemove )
       {
-        ( documentToRemove.Parent as ILayoutContainer ).RemoveChild(
-            documentToRemove );
+        ( documentToRemove.Parent as ILayoutContainer ).RemoveChild( documentToRemove );
         this.RemoveViewFromLogicalChild( documentToRemove );
       }
 
@@ -2804,6 +2790,8 @@ namespace Xceed.Wpf.AvalonDock
       {
         CollectionChangedEventManager.RemoveListener( documentsSourceAsNotifier, this );
       }
+
+      this.Layout.CollectGarbage();
     }
 
     private void Close( LayoutContent contentToClose )
@@ -3059,6 +3047,8 @@ namespace Xceed.Wpf.AvalonDock
       {
         CollectionChangedEventManager.RemoveListener( anchorablesSourceAsNotifier, this );
       }
+
+      this.Layout.CollectGarbage();
     }
 
     private void RemoveViewFromLogicalChild( LayoutContent layoutContent )
@@ -3071,7 +3061,10 @@ namespace Xceed.Wpf.AvalonDock
       {
         if( layoutItem.IsViewExists() )
         {
+          BindingOperations.ClearAllBindings( layoutItem.View );
+
           this.InternalRemoveLogicalChild( layoutItem.View );
+          layoutItem._view = null;
         }
       }
     }
@@ -3126,19 +3119,11 @@ namespace Xceed.Wpf.AvalonDock
       _collectLayoutItemsOperations = Dispatcher.BeginInvoke( new Action( () =>
       {
         _collectLayoutItemsOperations = null;
-        foreach( var itemToRemove in _layoutItems.Where( item => item.LayoutElement.Root != Layout ).ToArray() )
+        var layoutItems = _layoutItems.Where( item => item.LayoutElement.Root != Layout ).ToArray();
+        for( int i = 0; i < layoutItems.Count(); ++i )
         {
-
-          if( itemToRemove != null &&
-                  itemToRemove.Model != null &&
-                  itemToRemove.Model is UIElement )
-          {
-            //((ILogicalChildrenContainer)this).InternalRemoveLogicalChild(itemToRemove.Model as UIElement);
-          }
-
-          itemToRemove.Detach();
-          _layoutItems.Remove( itemToRemove );
-
+          var itemToRemove = layoutItems[ i ];
+          this.RemoveDocumentLayoutItem( itemToRemove.LayoutElement as LayoutDocument );
         }
       } ) );
     }
@@ -3226,7 +3211,24 @@ namespace Xceed.Wpf.AvalonDock
       {
         InternalAddLogicalChild( contentToAttach.Content );
       }
+    }
 
+    private void RemoveDocumentLayoutItem( LayoutDocument contentToRemove )
+    {
+      var layoutItem = _layoutItems.FirstOrDefault( item => item.LayoutElement == contentToRemove );
+      if( layoutItem != null )
+      {
+        layoutItem._ClearDefaultBindings();
+        layoutItem.Detach();
+        _layoutItems.Remove( layoutItem );
+
+        if( contentToRemove != null &&
+          contentToRemove.Content != null &&
+          contentToRemove.Content is UIElement )
+        {
+          InternalRemoveLogicalChild( contentToRemove.Content );
+        }
+      }
     }
 
     private LayoutFloatingWindowControl CreateFloatingWindowForLayoutAnchorableWithoutParent( LayoutAnchorablePane paneModel, bool isContentImmutable )
@@ -3306,6 +3308,9 @@ namespace Xceed.Wpf.AvalonDock
         Left = fwLeft
       };
 
+      var mainWindow = Window.GetWindow( this );
+      fwc.InputBindings.AddRange( mainWindow.InputBindings );
+
       foreach( var layoutContent in destPane.Children )
       {
         layoutContent.IsFloating = true;
@@ -3342,11 +3347,22 @@ namespace Xceed.Wpf.AvalonDock
 
       if( contentModel.FindParent<LayoutFloatingWindow>() == null )
       {
-        ( (ILayoutPreviousContainer)contentModel ).PreviousContainer = parentPane;
+        ( ( ILayoutPreviousContainer )contentModel ).PreviousContainer = parentPane;
         contentModel.PreviousContainerIndex = contentModelParentChildrenIndex;
       }
 
       parentPane.RemoveChildAt( contentModelParentChildrenIndex );
+
+      while( ( parentPane != null ) && ( parentPane.ChildrenCount == 0 ) )
+      {
+        var grandParent = parentPane.Parent as ILayoutPane;
+        if( grandParent != null )
+        {
+          grandParent.RemoveChild( parentPane );
+        }
+
+        parentPane = grandParent;
+      }
 
       double fwWidth = contentModel.FloatingWidth;
       double fwHeight = contentModel.FloatingHeight;
@@ -3384,11 +3400,14 @@ namespace Xceed.Wpf.AvalonDock
 
         Layout.FloatingWindows.Add( fw );
 
+        // Must be done after Layout.FloatingWindows.Add( fw ) to be able to modify the values in _dockingManager.Layout.FloatingWindows.CollectionChanged.
+        var fwSize = this.UpdateFloatingDimensions( contentModel, new Size( fwWidth, fwHeight ) );
+
         fwc = new LayoutAnchorableFloatingWindowControl(
             fw as LayoutAnchorableFloatingWindow, isContentImmutable )
         {
-          Width = fwWidth,
-          Height = fwHeight,
+          Width = fwSize.Width,
+          Height = fwSize.Height,
           Left = contentModel.FloatingLeft,
           Top = contentModel.FloatingTop
         };
@@ -3403,11 +3422,14 @@ namespace Xceed.Wpf.AvalonDock
 
         Layout.FloatingWindows.Add( fw );
 
+        // Must be done after Layout.FloatingWindows.Add( fw ) to be able to modify the values in _dockingManager.Layout.FloatingWindows.CollectionChanged.
+        var fwSize = this.UpdateFloatingDimensions( contentModel, new Size( fwWidth, fwHeight ) );
+
         fwc = new LayoutDocumentFloatingWindowControl(
             fw as LayoutDocumentFloatingWindow, isContentImmutable )
         {
-          Width = fwWidth,
-          Height = fwHeight,
+          Width = fwSize.Width,
+          Height = fwSize.Height,
           Left = contentModel.FloatingLeft,
           Top = contentModel.FloatingTop
         };
@@ -3418,6 +3440,8 @@ namespace Xceed.Wpf.AvalonDock
       //fwc.Owner = Window.GetWindow(this);
       //fwc.SetParentToMainWindowOf(this);
 
+      var mainWindow = Window.GetWindow( this );
+      fwc.InputBindings.AddRange( mainWindow.InputBindings );
 
       _fwList.Add( fwc );
 
@@ -3426,6 +3450,16 @@ namespace Xceed.Wpf.AvalonDock
       UpdateLayout();
 
       return fwc;
+    }
+
+    private Size UpdateFloatingDimensions( ILayoutElementForFloatingWindow contentModel, Size currentSize )
+    {
+      if( contentModel.FloatingWidth != 0d )
+        currentSize.Width = contentModel.FloatingWidth;
+      if( contentModel.FloatingHeight != 0d )
+        currentSize.Height = contentModel.FloatingHeight;
+
+      return currentSize;
     }
 
     private void UpdateStarSize( LayoutContent contentModel )
@@ -3463,7 +3497,7 @@ namespace Xceed.Wpf.AvalonDock
               if( grandParentPaneContainer != null )
               {
                 var children = grandParentPaneContainer.Children.Where( child => ( child.Equals( parentPane ) && ( parentPane is ILayoutContainer ) && ( ( ( ILayoutContainer )parentPane ).ChildrenCount > 1 ) )
-                                                                                || (!child.Equals( parentPane ) && (child is ILayoutContainer) && (((ILayoutContainer)child).ChildrenCount > 0)) )
+                                                                                || ( !child.Equals( parentPane ) && ( child is ILayoutContainer ) && ( ( ( ILayoutContainer )child ).ChildrenCount > 0 ) ) )
                                                                 .Cast<ILayoutPositionableElement>()
                                                                 .Where( child => child.DockWidth.IsStar );
                 var childrenTotalWidth = children.Sum( child => child.DockWidth.Value );
@@ -3505,7 +3539,7 @@ namespace Xceed.Wpf.AvalonDock
       {
         if( anchorableContextMenu.PlacementTarget is Control )
         {
-          anchorableContextMenu.VerticalOffset = ( (Control)anchorableContextMenu.PlacementTarget ).ActualHeight - anchorableContextMenu.ActualHeight;
+          anchorableContextMenu.VerticalOffset = ( ( Control )anchorableContextMenu.PlacementTarget ).ActualHeight - anchorableContextMenu.ActualHeight;
         }
         this.AnchorableContextMenu.Opened -= this.AnchorableContextMenu_Opened;
       }
@@ -3649,10 +3683,10 @@ namespace Xceed.Wpf.AvalonDock
     {
       if( typeof( CollectionChangedEventManager ) == managerType )
       {
-        var args = (NotifyCollectionChangedEventArgs)e;
+        var args = ( NotifyCollectionChangedEventArgs )e;
         if( sender == this.DocumentsSource )
         {
-          this.documentsSourceElementsChanged( sender, args );
+          this.DocumentsSourceElementsChanged( sender, args );
         }
         else if( sender == this.AnchorablesSource )
         {
