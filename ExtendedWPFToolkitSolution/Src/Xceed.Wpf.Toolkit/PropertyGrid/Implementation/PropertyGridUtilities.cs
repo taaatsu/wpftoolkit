@@ -2,7 +2,7 @@
    
    Toolkit for WPF
 
-   Copyright (C) 2007-2022 Xceed Software Inc.
+   Copyright (C) 2007-2024 Xceed Software Inc.
 
    This program is provided to you under the terms of the XCEED SOFTWARE, INC.
    COMMUNITY LICENSE AGREEMENT (for non-commercial use) as published at 
@@ -85,7 +85,16 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid
       else if( ( propertyType == typeof( Color ) ) || ( propertyType == typeof( Color? ) ) )
         editor = new ColorEditor();
       else if( propertyType.IsEnum )
-        editor = new EnumComboBoxEditor();
+      {
+        if( propertyType.GetCustomAttributes( typeof( FlagsAttribute ), false ).Length > 0 )
+        {
+          editor = new EnumCheckComboBoxEditor();
+        }
+        else
+        {
+          editor = new EnumComboBoxEditor();
+        }
+      }
       else if( propertyType == typeof( TimeSpan ) || propertyType == typeof( TimeSpan? ) )
         editor = new TimeSpanUpDownEditor();
       else if( propertyType == typeof( FontFamily ) || propertyType == typeof( FontWeight ) || propertyType == typeof( FontStyle ) || propertyType == typeof( FontStretch ) )

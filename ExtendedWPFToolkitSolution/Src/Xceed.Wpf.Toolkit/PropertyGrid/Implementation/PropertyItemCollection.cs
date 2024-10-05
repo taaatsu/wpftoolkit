@@ -2,7 +2,7 @@
    
    Toolkit for WPF
 
-   Copyright (C) 2007-2022 Xceed Software Inc.
+   Copyright (C) 2007-2024 Xceed Software Inc.
 
    This program is provided to you under the terms of the XCEED SOFTWARE, INC.
    COMMUNITY LICENSE AGREEMENT (for non-commercial use) as published at 
@@ -141,11 +141,8 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid
         if( groupDescription != null )
         {
           view.GroupDescriptions.Add( groupDescription );
-          if( sortAlphabetically )
-          {
-            SortBy( CategoryOrderPropertyName, ListSortDirection.Ascending );
-            SortBy( CategoryPropertyName, ListSortDirection.Ascending );
-          }
+          SortBy( CategoryOrderPropertyName, ListSortDirection.Ascending );
+          SortBy( CategoryPropertyName, ListSortDirection.Ascending );
         }
 
         SortBy( PropertyOrderPropertyName, ListSortDirection.Ascending );

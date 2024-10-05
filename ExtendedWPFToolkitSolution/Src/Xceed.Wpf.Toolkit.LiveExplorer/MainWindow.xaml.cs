@@ -1,8 +1,25 @@
 ﻿/*************************************************************************************
+   
+   Toolkit for WPF
+
+   Copyright (C) 2007-2024 Xceed Software Inc.
+
+   This program is provided to you under the terms of the XCEED SOFTWARE, INC.
+   COMMUNITY LICENSE AGREEMENT (for non-commercial use) as published at 
+   https://github.com/xceedsoftware/wpftoolkit/blob/master/license.md 
+
+   For more features, controls, and fast professional support,
+   pick up the Plus Edition at https://xceed.com/xceed-toolkit-plus-for-wpf/
+
+   Stay informed: follow @datagrid on Twitter or Like http://facebook.com/datagrids
+
+  ***********************************************************************************/
+
+/*************************************************************************************
 
    Toolkit for WPF
 
-   Copyright (C) 2007-2022 Xceed Software Inc.
+   Copyright (C) 2007-2024 Xceed Software Inc.
 
    This program is provided to you under the terms of the XCEED SOFTWARE, INC.
    COMMUNITY LICENSE AGREEMENT (for non-commercial use) as published at 
@@ -24,16 +41,11 @@ using Xceed.Wpf.Toolkit.LiveExplorer.Core;
 
 namespace Xceed.Wpf.Toolkit.LiveExplorer
 {
-  /// <summary>
-  /// Interaction logic for MainWindow.xaml
-  /// </summary>
   public partial class MainWindow : Window
   {
     private const string toolkitAssembly =
 #if NETCORE
         "Xceed.Wpf.Toolkit.LiveExplorer.NETCore"
-#elif NET5
-        "Xceed.Wpf.Toolkit.LiveExplorer.NET5"
 #else
         "Xceed.Wpf.Toolkit.LiveExplorer"
 #endif
@@ -44,8 +56,6 @@ namespace Xceed.Wpf.Toolkit.LiveExplorer
       InitializeComponent();
 #if NETCORE
         this.Title = "Toolkit Plus for WPF .NET Core - LiveExplorer";
-#elif NET5
-        this.Title = "Toolkit Plus for WPF .NET 5 - LiveExplorer";
 #else
       this.Title = "Toolkit Plus for WPF - LiveExplorer";
 #endif
@@ -122,7 +132,12 @@ namespace Xceed.Wpf.Toolkit.LiveExplorer
 
     private void Hyperlink_RequestNavigate( object sender, System.Windows.Navigation.RequestNavigateEventArgs e )
     {
-      Process.Start( new ProcessStartInfo( e.Uri.AbsoluteUri ) );
+      using( var p = new Process() )
+      {
+        p.StartInfo.FileName = e.Uri.AbsoluteUri;
+        p.StartInfo.UseShellExecute = true;
+        p.Start();
+      }
       e.Handled = true;
     }
 

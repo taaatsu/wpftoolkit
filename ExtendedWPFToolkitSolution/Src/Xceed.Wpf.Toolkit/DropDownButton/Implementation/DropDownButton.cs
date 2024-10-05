@@ -2,7 +2,7 @@
    
    Toolkit for WPF
 
-   Copyright (C) 2007-2022 Xceed Software Inc.
+   Copyright (C) 2007-2024 Xceed Software Inc.
 
    This program is provided to you under the terms of the XCEED SOFTWARE, INC.
    COMMUNITY LICENSE AGREEMENT (for non-commercial use) as published at 
@@ -16,12 +16,15 @@
   ***********************************************************************************/
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Threading;
 using Xceed.Wpf.Toolkit.Core.Utilities;
 
 namespace Xceed.Wpf.Toolkit
@@ -53,6 +56,8 @@ namespace Xceed.Wpf.Toolkit
 
     public DropDownButton()
     {
+
+      Core.Message.ShowMessage();
       Keyboard.AddKeyDownHandler( this, OnKeyDown );
       Mouse.AddPreviewMouseDownOutsideCapturedElementHandler( this, OnMouseDownOutsideCapturedElement );
     }
@@ -262,12 +267,28 @@ namespace Xceed.Wpf.Toolkit
         _popup.Opened += Popup_Opened;
     }
 
+
     protected override void OnIsKeyboardFocusWithinChanged( DependencyPropertyChangedEventArgs e )
     {
       base.OnIsKeyboardFocusWithinChanged( e );
+
       if( !( bool )e.NewValue )
       {
-        this.CloseDropDown( false );
+        var contextMenu = this.GetContextMenu( _popup.Child );
+
+        if( contextMenu == null ) 
+          this.CloseDropDown( false );
+        else
+        {
+          RoutedEventHandler handler = null;
+          handler = new RoutedEventHandler( ( s, a ) =>
+          {
+            contextMenu.Closed -= handler;
+            if( !this.IsKeyboardFocusWithin )
+              this.CloseDropDown( false );
+          } );
+          contextMenu.Closed += handler;
+        }
       }
     }
 
@@ -338,6 +359,32 @@ namespace Xceed.Wpf.Toolkit
     #endregion //Events
 
     #region Event Handlers
+
+    private ContextMenu GetContextMenu( DependencyObject parent )
+    {
+      if( parent == null )
+        return null;
+
+      for( int i = 0; i < VisualTreeHelper.GetChildrenCount( parent ); i++ )
+      {
+        var child = VisualTreeHelper.GetChild( parent, i );
+        if( child == null )
+          continue;
+
+        if( child is FrameworkElement children && children.ContextMenu != null && children.ContextMenu.IsOpen )
+        {
+          return children.ContextMenu;
+        }
+        else
+        {
+          var result = GetContextMenu( child );
+
+          if( result != null )
+            return result;
+        }
+      }
+      return null;
+    }
 
     private static void OnAccessKeyPressed( object sender, AccessKeyPressedEventArgs e )
     {
@@ -419,9 +466,6 @@ namespace Xceed.Wpf.Toolkit
       }
     }
 
-    /// <summary>
-    /// Closes the drop down.
-    /// </summary>
     private void CloseDropDown( bool isFocusOnButton )
     {
       if( IsOpen )
@@ -442,18 +486,12 @@ namespace Xceed.Wpf.Toolkit
       RaiseCommand();
     }
 
-    /// <summary>
-    /// Raises routed events.
-    /// </summary>
     private void RaiseRoutedEvent( RoutedEvent routedEvent )
     {
       RoutedEventArgs args = new RoutedEventArgs( routedEvent, this );
       RaiseEvent( args );
     }
 
-    /// <summary>
-    /// Raises the command's Execute event.
-    /// </summary>
     private void RaiseCommand()
     {
       if( Command != null )
@@ -467,22 +505,12 @@ namespace Xceed.Wpf.Toolkit
       }
     }
 
-    /// <summary>
-    /// Unhooks a command from the Command property.
-    /// </summary>
-    /// <param name="oldCommand">The old command.</param>
-    /// <param name="newCommand">The new command.</param>
     private void UnhookCommand( ICommand oldCommand, ICommand newCommand )
     {
       EventHandler handler = CanExecuteChanged;
       oldCommand.CanExecuteChanged -= handler;
     }
 
-    /// <summary>
-    /// Hooks up a command to the CanExecuteChnaged event handler.
-    /// </summary>
-    /// <param name="oldCommand">The old command.</param>
-    /// <param name="newCommand">The new command.</param>
     private void HookUpCommand( ICommand oldCommand, ICommand newCommand )
     {
       EventHandler handler = new EventHandler( CanExecuteChanged );

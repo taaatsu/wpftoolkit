@@ -8,6 +8,22 @@ Starting at v4.0.0, this free toolkit is provided under the [Xceed Community Lic
 
 ## Latest news
 
+**July 5, 2024** v4.6.1 released with [7 bug fixes and improvements](../../wiki/Improvements-in-v4.6.1). 
+
+*March 4, 2024* v4.6.1 of the [Plus Edition](../../wiki/Xceed-Toolkit-Plus-for-WPF) released with [8 bug fixes and improvements](../../wiki/Improvements-in-v3.5.0#Plus461)
+
+**January 22, 2024** v4.6.0 released with [7 bug fixes and improvements](../../wiki/Improvements-in-v4.6.0). 
+
+*October 23, 2023* v4.6.0 of the [Plus Edition](../../wiki/Xceed-Toolkit-Plus-for-WPF) released with [13 bug fixes and improvements](../../wiki/Improvements-in-v3.5.0#Plus460)
+
+**August 15, 2023** v4.5.1 released with [9 bug fixes and improvements](../../wiki/Improvements-in-v4.5.1). 
+
+*April 3, 2023* v4.5.1 of the [Plus Edition](../../wiki/Xceed-Toolkit-Plus-for-WPF) released with [19 bug fixes and improvements](../../wiki/Improvements-in-v3.5.0#Plus451)
+
+**November 25, 2022** v4.5.0 released with [18 bug fixes and improvements](../../wiki/Improvements-in-v4.5.0). 
+
+*October 5, 2022* v4.5 of the [Plus Edition](../../wiki/Xceed-Toolkit-Plus-for-WPF) released with [25 bug fixes and improvements](../../wiki/Improvements-in-v3.5.0#Plus450)
+
 **August 22, 2022** v4.4.0 released with [17 bug fixes and improvements](../../wiki/Improvements-in-v4.4.0). 
 
 *May 14, 2022* v4.4 of the [Plus Edition](../../wiki/Xceed-Toolkit-Plus-for-WPF) released with [26 bug fixes and improvements](../../wiki/Improvements-in-v3.5.0#Plus440)
@@ -16,15 +32,6 @@ Starting at v4.0.0, this free toolkit is provided under the [Xceed Community Lic
 
 *February 4, 2022* v4.3.1 of the [Plus Edition](../../wiki/Xceed-Toolkit-Plus-for-WPF) released with [46 bug fixes and improvements](../../wiki/Improvements-in-v3.5.0#Plus431)
 
-**December 2, 2021** v4.2.0 released with [18 bug fixes and improvements](../../wiki/Improvements-in-v4.2.0). 
-
-*July 19, 2021* v4.2.0 of the [Plus Edition](../../wiki/Xceed-Toolkit-Plus-for-WPF) released with [23 bug fixes and improvements](../../wiki/Improvements-in-v3.5.0#Plus420)
-
-**May 18, 2021** v4.1.0 released with [20 bug fixes and improvements](../../wiki/Improvements-in-v4.1.0). 
-
-*January 25, 2021* v4.1.0 of the [Plus Edition](../../wiki/Xceed-Toolkit-Plus-for-WPF) released with [27 bug fixes and improvements](../../wiki/Improvements-in-v3.5.0#Plus410)
-
-**January 7, 2021** v4.0.2 released with [22 bug fixes and improvements](../../wiki/Improvements-in-v4.0.2). 
 
 
 ## Controls included
@@ -173,6 +180,14 @@ A commercial license can be purchased at [Xceed](https://xceed.com).
 
 ## Release history
 
+* **July 5, 2024 v4.6.1 released with [7 bug fixes and improvements](../../wiki/Improvements-in-v4.6.1).**
+* March 4, 2024, released v4.6.1 of the [Plus Edition](../../wiki/Xceed-Toolkit-Plus-for-WPF) released with [8 bug fixes and improvements](../../wiki/Improvements-in-v3.5.0#Plus461).
+* **January 22, 2024 v4.6.0 released with [7 bug fixes and improvements](../../wiki/Improvements-in-v4.6.0).**
+* October 23, 2023, released v4.6.0 of the [Plus Edition](../../wiki/Xceed-Toolkit-Plus-for-WPF) released with [13 bug fixes and improvements](../../wiki/Improvements-in-v3.5.0#Plus460).
+* **August 15, 2023 v4.5.1 released with [9 bug fixes and improvements](../../wiki/Improvements-in-v4.5.1).**
+* April 3, 2023, released v4.5.1 of the [Plus Edition](../../wiki/Xceed-Toolkit-Plus-for-WPF) released with [19 bug fixes and improvements](../../wiki/Improvements-in-v3.5.0#Plus451).
+* **November 25, 2022 v4.5.0 released with [18 bug fixes and improvements](../../wiki/Improvements-in-v4.5.0).**
+* October 5, 2022, released v4.5 of the [Plus Edition](../../wiki/Xceed-Toolkit-Plus-for-WPF) released with [25 bug fixes and improvements](../../wiki/Improvements-in-v3.5.0#Plus450).
 * **August 22, 2022 v4.4.0 released with [17 bug fixes and improvements](../../wiki/Improvements-in-v4.4.0).**
 * May 14, 2022, released v4.4 of the [Plus Edition](../../wiki/Xceed-Toolkit-Plus-for-WPF) released with [26 bug fixes and improvements](../../wiki/Improvements-in-v3.5.0#Plus440).
 * **March 25, 2022 v4.3.0 released with [32 bug fixes and improvements](../../wiki/Improvements-in-v4.3.0).**

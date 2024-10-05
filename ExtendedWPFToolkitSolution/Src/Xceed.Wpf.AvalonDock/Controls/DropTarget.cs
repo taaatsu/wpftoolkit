@@ -2,7 +2,7 @@
    
    Toolkit for WPF
 
-   Copyright (C) 2007-2022 Xceed Software Inc.
+   Copyright (C) 2007-2024 Xceed Software Inc.
 
    This program is provided to you under the terms of the XCEED SOFTWARE, INC.
    COMMUNITY LICENSE AGREEMENT (for non-commercial use) as published at 
@@ -99,16 +99,32 @@ namespace Xceed.Wpf.AvalonDock.Controls
     {
       var root = floatingWindow.Root;
       var currentActiveContent = floatingWindow.Root.ActiveContent;
+      var manager = root.Manager;
       var fwAsAnchorable = floatingWindow as LayoutAnchorableFloatingWindow;
 
       if( fwAsAnchorable != null )
       {
+        // Raise PreviewDock Event
+        var draggedLayoutAnchorable = floatingWindow.Descendents().OfType<LayoutAnchorable>().FirstOrDefault( l => l != null );
+        manager.RaisePreviewDockEvent( draggedLayoutAnchorable );
+
         this.Drop( fwAsAnchorable );
+
+        // Raise Dock Event
+        manager.RaiseDockedEvent( draggedLayoutAnchorable );
       }
       else
       {
         var fwAsDocument = floatingWindow as LayoutDocumentFloatingWindow;
+
+        // Raise PreviewDock Event
+        var draggedLayoutDocument = floatingWindow.Descendents().OfType<LayoutDocument>().FirstOrDefault( l => l != null );
+        manager.RaisePreviewDockEvent( draggedLayoutDocument );
+
         this.Drop( fwAsDocument );
+
+        // Raise Dock Event
+        manager.RaiseDockedEvent( draggedLayoutDocument );
       }
 
       if( currentActiveContent != null )

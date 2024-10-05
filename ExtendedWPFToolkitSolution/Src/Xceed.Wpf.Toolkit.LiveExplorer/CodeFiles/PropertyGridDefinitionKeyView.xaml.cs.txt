@@ -2,7 +2,7 @@
 
    Toolkit for WPF
 
-   Copyright (C) 2007-2022 Xceed Software Inc.
+   Copyright (C) 2007-2024 Xceed Software Inc.
 
    This program is provided to you under the terms of the XCEED SOFTWARE, INC.
    COMMUNITY LICENSE AGREEMENT (for non-commercial use) as published at 
@@ -27,8 +27,35 @@ namespace Xceed.Wpf.Toolkit.LiveExplorer.Samples.PropertyGrid.Views
     public PropertyGridDefinitionKeyView()
     {
       InitializeComponent();
+#if !OPEN_SOURCE      
+      var person = new Person();
+      person.FirstName = "John";
+      person.LastName = "Smith";
+      person.ReferenceNo = 252521;
 
+      this.DataContext = person;
+#endif
     }
 
+#if !OPEN_SOURCE
+    private class Person
+    {
+      [DefinitionKey( "nameType" )]
+      public string FirstName
+      {
+        get; set;
+      }
+      [DefinitionKey( "nameType" )]
+      public string LastName
+      {
+        get; set;
+      }
+      [DefinitionKey( typeof( int? ) )]
+      public object ReferenceNo
+      {
+        get; set;
+      }
+    }
+#endif
   }
 }

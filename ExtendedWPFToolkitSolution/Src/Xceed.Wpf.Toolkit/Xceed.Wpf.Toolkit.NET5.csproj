@@ -9,7 +9,7 @@
   <PropertyGroup>
     <TargetFramework>net6.0-windows</TargetFramework>
     <RootNamespace>Xceed.Wpf.Toolkit</RootNamespace>
-    <AssemblyName>Xceed.Wpf.Toolkit.NET5</AssemblyName>
+    <AssemblyName>Xceed.Wpf.Toolkit</AssemblyName>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
@@ -364,8 +364,10 @@
     <Compile Include="ColorPicker\Implementation\ColorPickerTabItem.cs" />
     <Compile Include="Core\Converters\ColorModeToTabItemSelectedConverter.cs" />
     <Compile Include="Core\Converters\PrintableFontFamilyConverter.cs" />
+    <Compile Include="Core\Converters\TabItemSizeConverter.cs" />
     <Compile Include="Core\GenericTextBlock.cs" />
     <Compile Include="Core\ImageUriExtension.cs" />
+    <Compile Include="Core\Message.cs" />
     <Compile Include="Core\PackUriExtension.cs" />
     <Compile Include="Core\ResourceDictionary.cs" />
     <Compile Include="DateTimePicker\Implementation\Converters\BorderThicknessConverter.cs" />
@@ -418,6 +420,7 @@
     <Compile Include="PropertyGrid\Implementation\Converters\IsStringEmptyConverter.cs" />
     <Compile Include="PropertyGrid\Implementation\Converters\PropertyNameTextTrimmingConverter.cs" />
     <Compile Include="PropertyGrid\Implementation\Editors\CollectionEditor.cs" />
+    <Compile Include="PropertyGrid\Implementation\Editors\EnumCheckComboboxEditor.cs" />
     <Compile Include="PropertyGrid\Implementation\Editors\PasswordEditor.cs" />
     <Compile Include="PropertyGrid\Implementation\Editors\SourceComboBoxEditor.cs" />
     <Compile Include="PropertyGrid\Implementation\PropertyGridContextMenu.cs" />
@@ -630,6 +633,7 @@
     <Compile Include="TimePicker\Implementation\TimePicker.cs" />
     <Compile Include="TimeSpanUpDown\Implementation\TimeSpanUpDown.cs" />
     <Compile Include="Utils\Exceptions\ThrowException.cs" />
+    <Compile Include="Utils\Licensing\LicenseOrigin.cs" />
     <Compile Include="VisualStates.cs" />
     <Compile Include="MessageBox\Implementation\VisualStates.MessageBox.cs" />
     <Compile Include="WatermarkComboBox\Implementation\WatermarkComboBox.cs" />

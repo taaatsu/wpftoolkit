@@ -2,7 +2,7 @@
    
    Toolkit for WPF
 
-   Copyright (C) 2007-2022 Xceed Software Inc.
+   Copyright (C) 2007-2024 Xceed Software Inc.
 
    This program is provided to you under the terms of the XCEED SOFTWARE, INC.
    COMMUNITY LICENSE AGREEMENT (for non-commercial use) as published at 
@@ -21,6 +21,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 using Xceed.Wpf.AvalonDock.Layout;
 
 namespace Xceed.Wpf.AvalonDock.Controls
@@ -35,7 +36,7 @@ namespace Xceed.Wpf.AvalonDock.Controls
     private List<Rect> _otherTabsScreenArea = null;
     private List<TabItem> _otherTabs = null;
     private Rect _parentDocumentTabPanelScreenArea;
-    private DocumentPaneTabPanel _parentDocumentTabPanel;
+    private Panel _parentTabPanel;
     private bool _isMouseDown = false;
     private Point _mouseDownPoint;
     private double _mouseLastChangePositionX;
@@ -60,16 +61,9 @@ namespace Xceed.Wpf.AvalonDock.Controls
 
     #region Model
 
-    /// <summary>
-    /// Model Dependency Property
-    /// </summary>
     public static readonly DependencyProperty ModelProperty = DependencyProperty.Register( "Model", typeof( LayoutContent ), typeof( LayoutDocumentTabItem ),
             new FrameworkPropertyMetadata( ( LayoutContent )null, new PropertyChangedCallback( OnModelChanged ) ) );
 
-    /// <summary>
-    /// Gets or sets the Model property.  This dependency property 
-    /// indicates the layout content model attached to the tab item.
-    /// </summary>
     public LayoutContent Model
     {
       get
@@ -82,43 +76,29 @@ namespace Xceed.Wpf.AvalonDock.Controls
       }
     }
 
-    /// <summary>
-    /// Handles changes to the Model property.
-    /// </summary>
     private static void OnModelChanged( DependencyObject d, DependencyPropertyChangedEventArgs e )
     {
       ( ( LayoutDocumentTabItem )d ).OnModelChanged( e );
     }
 
 
-    /// <summary>
-    /// Provides derived classes an opportunity to handle changes to the Model property.
-    /// </summary>
     protected virtual void OnModelChanged( DependencyPropertyChangedEventArgs e )
     {
-      if( Model != null )
-        SetLayoutItem( Model.Root.Manager.GetLayoutItemFromModel( Model ) );
+      if( ( this.Model != null ) && ( this.Model.Root != null ) && ( this.Model.Root.Manager != null ) )
+        this.SetLayoutItem( Model.Root.Manager.GetLayoutItemFromModel( Model ) );
       else
-        SetLayoutItem( null );
-      //UpdateLogicalParent();
+        this.SetLayoutItem( null );
     }
 
     #endregion
 
     #region LayoutItem
 
-    /// <summary>
-    /// LayoutItem Read-Only Dependency Property
-    /// </summary>
     private static readonly DependencyPropertyKey LayoutItemPropertyKey = DependencyProperty.RegisterReadOnly( "LayoutItem", typeof( LayoutItem ), typeof( LayoutDocumentTabItem ),
             new FrameworkPropertyMetadata( ( LayoutItem )null ) );
 
     public static readonly DependencyProperty LayoutItemProperty = LayoutItemPropertyKey.DependencyProperty;
 
-    /// <summary>
-    /// Gets the LayoutItem property.  This dependency property 
-    /// indicates the LayoutItem attached to this tag item.
-    /// </summary>
     public LayoutItem LayoutItem
     {
       get
@@ -127,11 +107,6 @@ namespace Xceed.Wpf.AvalonDock.Controls
       }
     }
 
-    /// <summary>
-    /// Provides a secure method for setting the LayoutItem property.  
-    /// This dependency property indicates the LayoutItem attached to this tag item.
-    /// </summary>
-    /// <param name="value">The new value for the property.</param>
     protected void SetLayoutItem( LayoutItem value )
     {
       SetValue( LayoutItemPropertyKey, value );
@@ -220,7 +195,7 @@ namespace Xceed.Wpf.AvalonDock.Controls
                 containerPane.MoveChild( currentIndex, newIndex );
                 _dragBuffer = MaxDragBuffer;
                 this.Model.IsActive = true;
-                _parentDocumentTabPanel.UpdateLayout();
+                _parentTabPanel.UpdateLayout();
                 this.UpdateDragDetails();
                 _mouseLastChangePositionX = mousePosInScreenCoord.X;
               }
@@ -271,10 +246,19 @@ namespace Xceed.Wpf.AvalonDock.Controls
 
     private void UpdateDragDetails()
     {
-      _parentDocumentTabPanel = this.FindLogicalAncestor<DocumentPaneTabPanel>();
-      _parentDocumentTabPanelScreenArea = _parentDocumentTabPanel.GetScreenArea();
+      _parentTabPanel = this.FindLogicalAncestor<DocumentPaneTabPanel>();
+
+      if( _parentTabPanel == null )
+      {
+        _parentTabPanel = this.GetParentPanel();
+      }
+
+      if( _parentTabPanel == null )
+        return;
+
+      _parentDocumentTabPanelScreenArea = _parentTabPanel.GetScreenArea();
       _parentDocumentTabPanelScreenArea.Inflate( 0, _dragBuffer );
-      _otherTabs = _parentDocumentTabPanel.Children.Cast<TabItem>().Where( ch => ch.Visibility != System.Windows.Visibility.Collapsed ).ToList();
+      _otherTabs = _parentTabPanel.Children.Cast<TabItem>().Where( ch => ch.Visibility != System.Windows.Visibility.Collapsed ).ToList();
       var currentTabScreenArea = this.FindLogicalAncestor<TabItem>().GetScreenArea();
       _otherTabsScreenArea = _otherTabs.Select( ti =>
       {
@@ -283,6 +267,21 @@ namespace Xceed.Wpf.AvalonDock.Controls
         rect.Inflate( 0, _dragBuffer );
         return rect;
       } ).ToList();
+    }
+
+    private Panel GetParentPanel()
+    {
+      var parents = this.FindLogicalAncestorsAndSelf();
+
+      foreach( var parent in parents )
+      {
+        var panel = parent as Panel;
+        if( panel != null && ( panel.Children[ 0 ] as TabItem ) != null )
+        {
+          return panel;
+        }
+      }
+      return null;
     }
 
     private void StartDraggingFloatingWindowForContent()

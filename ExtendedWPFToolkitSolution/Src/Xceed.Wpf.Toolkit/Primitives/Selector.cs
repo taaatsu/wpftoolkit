@@ -2,7 +2,7 @@
    
    Toolkit for WPF
 
-   Copyright (C) 2007-2022 Xceed Software Inc.
+   Copyright (C) 2007-2024 Xceed Software Inc.
 
    This program is provided to you under the terms of the XCEED SOFTWARE, INC.
    COMMUNITY LICENSE AGREEMENT (for non-commercial use) as published at 
@@ -26,6 +26,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Xceed.Wpf.Toolkit.Core.Utilities;
+using Xceed.Wpf.Toolkit.PropertyGrid;
+using Xceed.Wpf.Toolkit.PropertyGrid.Editors;
 
 namespace Xceed.Wpf.Toolkit.Primitives
 {
@@ -299,8 +301,11 @@ namespace Xceed.Wpf.Toolkit.Primitives
 
     protected virtual void OnSelectedValueChanged( string oldValue, string newValue )
     {
-      if( !this.IsInitialized || _ignoreSelectedValueChanged )
-        return;
+      if( !( this is PropertyGridEditorEnumCheckComboBox ) )
+      {
+        if( !this.IsInitialized || _ignoreSelectedValueChanged )
+          return;
+      }
 
       UpdateFromSelectedValue();
     }
@@ -662,11 +667,6 @@ namespace Xceed.Wpf.Toolkit.Primitives
       }
     }
 
-    /// <summary>
-    /// When SelectedItems collection implements INotifyPropertyChanged, this is the callback.
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
     protected virtual void OnSelectedItemsCollectionChanged( object sender, NotifyCollectionChangedEventArgs e )
     {
       if( _ignoreSelectedItemsCollectionChanged > 0 )
@@ -746,11 +746,6 @@ namespace Xceed.Wpf.Toolkit.Primitives
       }
     }
 
-    /// <summary>
-    /// When the ItemsSource implements INotifyPropertyChanged, this is the change callback.
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="args"></param>
     private void OnItemsSourceCollectionChanged( object sender, NotifyCollectionChangedEventArgs args )
     {
       this.RemoveUnavailableSelectedItems();
@@ -759,10 +754,6 @@ namespace Xceed.Wpf.Toolkit.Primitives
       this.UpdateValueMemberPathValuesBindings();
     }
 
-    /// <summary>
-    /// This is called when any value of any item referenced by SelectedMemberPath
-    /// is modified. This may affect the SelectedItems collection.
-    /// </summary>
     private void OnSelectedMemberPathValuesChanged()
     {
       if( _ignoreSelectedMemberPathValuesChanged > 0 )
@@ -771,10 +762,6 @@ namespace Xceed.Wpf.Toolkit.Primitives
       this.UpdateFromSelectedMemberPathValues();
     }
 
-    /// <summary>
-    /// This is called when any value of any item referenced by ValueMemberPath
-    /// is modified. This will affect the SelectedValue property
-    /// </summary>
     private void OnValueMemberPathValuesChanged()
     {
       this.UpdateSelectedValue();
@@ -791,11 +778,6 @@ namespace Xceed.Wpf.Toolkit.Primitives
       _valueMemberPathValuesHelper.UpdateValueSource( ItemsCollection, ValueMemberPath );
     }
 
-    /// <summary>
-    /// This method will be called when the "IsSelected" property of an SelectorItem
-    /// has been modified.
-    /// </summary>
-    /// <param name="args"></param>
     protected virtual void OnItemSelectionChanged( ItemSelectionChangedEventArgs args )
     {
       if( _surpressItemSelectionChanged )
@@ -804,11 +786,6 @@ namespace Xceed.Wpf.Toolkit.Primitives
       RaiseEvent( args );
     }
 
-    /// <summary>
-    /// This method will be called when the "IsSelected" property of an SelectorItem
-    /// has been modified.
-    /// </summary>
-    /// <param name="args"></param>
     public event EventHandler<ItemSelectionChangingEventArgs> ItemSelectionChanging;
 
     protected virtual void OnItemSelectionChanging( ItemSelectionChangingEventArgs args )
@@ -819,9 +796,6 @@ namespace Xceed.Wpf.Toolkit.Primitives
       }
     }
 
-    /// <summary>
-    /// Updates the SelectedValue property based on what is present in the SelectedItems property.
-    /// </summary>
     private void UpdateSelectedValue()
     {
 #if VS2008
@@ -837,9 +811,6 @@ namespace Xceed.Wpf.Toolkit.Primitives
       }
     }
 
-    /// <summary>
-    /// Updates the SelectedItem property based on what is present in the SelectedItems property.
-    /// </summary>
     private void UpdateSelectedItem()
     {
       if( !SelectedItems.Contains( SelectedItem ) )
@@ -850,10 +821,6 @@ namespace Xceed.Wpf.Toolkit.Primitives
       }
     }
 
-    /// <summary>
-    /// Update the SelectedItems collection based on the values 
-    /// refered to by the SelectedMemberPath property.
-    /// </summary>
     private void UpdateFromSelectedMemberPathValues()
     {
       _ignoreSelectedItemsCollectionChanged++;
@@ -908,14 +875,6 @@ namespace Xceed.Wpf.Toolkit.Primitives
       this.UpdateFromSelectedItems();
     }
 
-    /// <summary>
-    /// Updates the following based on the content of SelectedItems:
-    /// - All SelectorItems "IsSelected" properties
-    /// - Values refered to by SelectedMemberPath
-    /// - SelectedItem property
-    /// - SelectedValue property
-    /// Refered to by the SelectedMemberPath property.
-    /// </summary>
     private void UpdateFromSelectedItems()
     {
       foreach( var o in this.ItemsCollection )
@@ -950,9 +909,6 @@ namespace Xceed.Wpf.Toolkit.Primitives
       }
     }
 
-    /// <summary>
-    /// Removes all items from SelectedItems that are no longer in ItemsSource.
-    /// </summary>
     private void RemoveUnavailableSelectedItems()
     {
       _ignoreSelectedItemsCollectionChanged++;
@@ -988,10 +944,6 @@ namespace Xceed.Wpf.Toolkit.Primitives
       }
     }
 
-    /// <summary>
-    /// Updates the SelectedItems collection based on the content of
-    /// the SelectedValue property.
-    /// </summary>
     private void UpdateFromSelectedValue()
     {
       List<string> selectedValues = null;

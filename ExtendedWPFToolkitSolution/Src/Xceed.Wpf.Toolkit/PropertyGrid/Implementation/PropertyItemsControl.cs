@@ -2,7 +2,7 @@
    
    Toolkit for WPF
 
-   Copyright (C) 2007-2022 Xceed Software Inc.
+   Copyright (C) 2007-2024 Xceed Software Inc.
 
    This program is provided to you under the terms of the XCEED SOFTWARE, INC.
    COMMUNITY LICENSE AGREEMENT (for non-commercial use) as published at 
@@ -22,26 +22,11 @@ using System.ComponentModel;
 
 namespace Xceed.Wpf.Toolkit.PropertyGrid
 {
-  /// <summary>
-  /// This Control is intended to be used in the template of the 
-  /// PropertyItemBase and PropertyGrid classes to contain the
-  /// sub-children properties.
-  /// </summary>
   public class PropertyItemsControl : ItemsControl
   {
     public PropertyItemsControl()
     {
-      var propertyItemsControlProperties = TypeDescriptor.GetProperties( this, new Attribute[] { new PropertyFilterAttribute( PropertyFilterOptions.All ) } );
-      var prop1 = propertyItemsControlProperties.Find( "VirtualizingPanel.IsVirtualizingWhenGrouping", false );
-      if( prop1 != null )
-      {
-        prop1.SetValue( this, true );
-      }
-      var prop2 = propertyItemsControlProperties.Find( "VirtualizingPanel.CacheLengthUnit", false );
-      if( prop2 != null )
-      {
-        prop2.SetValue( this, Enum.ToObject( prop2.PropertyType, 1 ) );
-      }
+      this.Initialized += this.PropertyItemsControl_Initialized;
     }
 
     #region PreparePropertyItemEvent Attached Routed Event
@@ -106,5 +91,51 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid
       base.ClearContainerForItemOverride( element, item );
     }
 
+
+    private void PropertyItemsControl_Initialized( object sender, EventArgs e )
+    {
+      var propertyItemsControl = sender as PropertyItemsControl;
+      if( propertyItemsControl != null )
+      {
+        var propertyGrid = propertyItemsControl.TemplatedParent as PropertyGrid;
+        if( propertyGrid != null )
+        {
+          if( propertyGrid.IsVirtualizing )
+          {
+            this.SetVirtualizingWhenGrouping();
+          }
+        }
+        else
+        {
+          var propertyItem = propertyItemsControl.TemplatedParent as PropertyItem;
+          if( propertyItem != null )
+          {
+            propertyGrid = propertyItem.ParentElement as PropertyGrid;
+            if( propertyGrid != null )
+            {
+              if( propertyGrid.IsVirtualizing )
+              {
+                this.SetVirtualizingWhenGrouping();
+              }
+            }
+          }
+        }
+      }
+    }
+
+    private void SetVirtualizingWhenGrouping()
+    {
+      var propertyItemsControlProperties = TypeDescriptor.GetProperties( this, new Attribute[] { new PropertyFilterAttribute( PropertyFilterOptions.All ) } );
+      var prop1 = propertyItemsControlProperties.Find( "VirtualizingPanel.IsVirtualizingWhenGrouping", false );
+      if( prop1 != null )
+      {
+        prop1.SetValue( this, true );
+      }
+      var prop2 = propertyItemsControlProperties.Find( "VirtualizingPanel.CacheLengthUnit", false );
+      if( prop2 != null )
+      {
+        prop2.SetValue( this, Enum.ToObject( prop2.PropertyType, 1 ) );
+      }
+    }
   }
 }

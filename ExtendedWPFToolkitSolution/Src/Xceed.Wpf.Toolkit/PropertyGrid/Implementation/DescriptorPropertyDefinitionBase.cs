@@ -2,7 +2,7 @@
    
    Toolkit for WPF
 
-   Copyright (C) 2007-2022 Xceed Software Inc.
+   Copyright (C) 2007-2024 Xceed Software Inc.
 
    This program is provided to you under the terms of the XCEED SOFTWARE, INC.
    COMMUNITY LICENSE AGREEMENT (for non-commercial use) as published at 
@@ -28,6 +28,7 @@ using System.ComponentModel;
 using System.Windows.Data;
 #if !VS2008
 using System.ComponentModel.DataAnnotations;
+using System.Windows.Threading;
 #endif
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
@@ -131,7 +132,7 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid
       }
     }
 
-    protected abstract BindingBase CreateValueBinding();
+    protected abstract void CreateValueBinding();
 
     #endregion
 
@@ -682,8 +683,7 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid
       _commandBindings = new CommandBinding[] { new CommandBinding( PropertyItemCommands.ResetValue, ExecuteResetValueCommand, CanExecuteResetValueCommand ) };
 
 
-      BindingBase valueBinding = this.CreateValueBinding();
-      BindingOperations.SetBinding( this, DescriptorPropertyDefinitionBase.ValueProperty, valueBinding );
+      this.CreateValueBinding();
     }
 
 

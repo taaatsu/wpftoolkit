@@ -2,7 +2,7 @@
    
    Toolkit for WPF
 
-   Copyright (C) 2007-2022 Xceed Software Inc.
+   Copyright (C) 2007-2024 Xceed Software Inc.
 
    This program is provided to you under the terms of the XCEED SOFTWARE, INC.
    COMMUNITY LICENSE AGREEMENT (for non-commercial use) as published at 
@@ -74,6 +74,8 @@ namespace Xceed.Wpf.Toolkit
 
     public RichTextBoxFormatBar()
     {
+
+      Core.Message.ShowMessage();
     }
 
     #endregion //Constructors
@@ -357,9 +359,6 @@ namespace Xceed.Wpf.Toolkit
       }
     }
 
-    /// <summary>
-    /// Updates the visual state of the List styles, such as Numbers and Bullets.
-    /// </summary>
     private void UpdateSelectionListType()
     {
       if( ( _btnNumbers == null ) || ( _btnBullets == null ) )
@@ -389,10 +388,6 @@ namespace Xceed.Wpf.Toolkit
       }
     }
 
-    /// <summary>
-    /// Checks to see if both selection lists are checked. (Bullets and Numbers)
-    /// </summary>
-    /// <returns></returns>
     private bool BothSelectionListsAreChecked()
     {
       return ( ( _btnBullets != null ) && ( _btnBullets.IsChecked == true ) )

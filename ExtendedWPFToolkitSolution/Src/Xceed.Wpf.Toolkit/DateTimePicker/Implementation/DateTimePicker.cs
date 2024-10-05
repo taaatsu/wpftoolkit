@@ -2,7 +2,7 @@
    
    Toolkit for WPF
 
-   Copyright (C) 2007-2022 Xceed Software Inc.
+   Copyright (C) 2007-2024 Xceed Software Inc.
 
    This program is provided to you under the terms of the XCEED SOFTWARE, INC.
    COMMUNITY LICENSE AGREEMENT (for non-commercial use) as published at 
@@ -179,16 +179,9 @@ namespace Xceed.Wpf.Toolkit
 
     #region TimePickerTimeListItemsStyle
 
-    /// <summary>
-    /// TimePickerTimeListItemsStyle Dependency Property
-    /// </summary>
     public static readonly DependencyProperty TimePickerTimeListItemsStyleProperty = DependencyProperty.Register( "TimePickerTimeListItemsStyle", typeof( Style ), typeof( DateTimePicker ),
             new FrameworkPropertyMetadata( ( Style )null, new PropertyChangedCallback( OnTimePickerTimeListItemsStyleChanged ) ) );
 
-    /// <summary>
-    /// Gets or sets the TimePickerTimeListItemsStyle property.  
-    /// This dependency property indicates the style to apply to TimeListItems objects.
-    /// </summary>
     public Style TimePickerTimeListItemsStyle
     {
       get
@@ -201,17 +194,11 @@ namespace Xceed.Wpf.Toolkit
       }
     }
 
-    /// <summary>
-    /// Handles changes to the TimePickerTimeListItemsStyle property.
-    /// </summary>
     private static void OnTimePickerTimeListItemsStyleChanged( DependencyObject d, DependencyPropertyChangedEventArgs e )
     {
       ( ( DateTimePicker )d ).OnTimePickerTimeListItemsStyleChanged( e );
     }
 
-    /// <summary>
-    /// Provides derived classes an opportunity to handle changes to the TimePickerTimeListItemsStyle property.
-    /// </summary>
     protected virtual void OnTimePickerTimeListItemsStyleChanged( DependencyPropertyChangedEventArgs e )
     {
       // TODO: Add your property changed side-effects. Descendants can override as well.
@@ -304,7 +291,8 @@ namespace Xceed.Wpf.Toolkit
 
     public DateTimePicker()
     {
-      EventManager.RegisterClassHandler( typeof( ListBoxItem ), PreviewMouseUpEvent, new RoutedEventHandler( PreviewMouseUpEventHandler ) );
+
+      Core.Message.ShowMessage();
     }
 
     #endregion //Constructors
@@ -452,7 +440,7 @@ namespace Xceed.Wpf.Toolkit
       }
     }
 
-    #endregion //Cancel Event
+    #endregion //Today Event
 
     #endregion // Events
 
@@ -491,6 +479,17 @@ namespace Xceed.Wpf.Toolkit
           this.TextBox.Text = newValue.ToString( this.GetFormatString( this.Format ), this.CultureInfo );
           _fireSelectionChangedEvent = true;
         }
+      }
+
+      // Do not close calendar on Year/Month Selection. Close only on Day selection.
+      if( ( _timePicker != null )
+        && _timePicker.IsOpen
+        && this.AutoCloseCalendarOnTimeSelection 
+        && ( _calendar != null ) 
+        && ( _calendar.DisplayMode == CalendarMode.Month ) )
+      {
+        Mouse.Capture( null );
+        this.ClosePopup( true );
       }
     }
 
@@ -582,22 +581,6 @@ namespace Xceed.Wpf.Toolkit
           // Set TimePicker.TempValue with current DateTimePicker.TextBox.Text.
           var initialDate = this.ConvertTextToValue( this.TextBox.Text );
           _timePicker.UpdateTempValue( initialDate );
-        }
-      }
-    }
-
-    private void PreviewMouseUpEventHandler( object sender, RoutedEventArgs e )
-    {
-      var item = sender as ListBoxItem;
-
-      if( ( item != null ) && ( item.Content is TimeItem ) )
-      {
-        Mouse.Capture( null );
-
-        // Do not close calendar on Year/Month Selection. Close only on Day selection.
-        if( AutoCloseCalendarOnTimeSelection && ( _calendar != null ) && ( _calendar.DisplayMode == CalendarMode.Month ) )
-        {
-          ClosePopup( true );
         }
       }
     }

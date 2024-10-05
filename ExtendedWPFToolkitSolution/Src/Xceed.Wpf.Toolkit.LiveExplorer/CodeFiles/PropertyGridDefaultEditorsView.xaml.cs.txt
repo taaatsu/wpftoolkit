@@ -2,7 +2,7 @@
 
    Toolkit for WPF
 
-   Copyright (C) 2007-2022 Xceed Software Inc.
+   Copyright (C) 2007-2024 Xceed Software Inc.
 
    This program is provided to you under the terms of the XCEED SOFTWARE, INC.
    COMMUNITY LICENSE AGREEMENT (for non-commercial use) as published at 
@@ -65,6 +65,9 @@ namespace Xceed.Wpf.Toolkit.LiveExplorer.Samples.PropertyGrid.Views
       selectedObject.UInt16 = ( ushort )9;
       selectedObject.UInt32 = ( uint )10;
       selectedObject.UInt64 = ( ulong )11;
+#if !OPEN_SOURCE
+      selectedObject.File = new FileInfo( "c:\\MyFile.txt" );
+#endif
 
       this.DataContext = selectedObject;
     }
@@ -216,6 +219,14 @@ namespace Xceed.Wpf.Toolkit.LiveExplorer.Samples.PropertyGrid.Views
       {
         get; set;
       }
+#if !OPEN_SOURCE
+      [Category( "Non-Numeric Editors" )]
+      [Description( "This property uses a FilePicker as the default editor." )]
+      public FileInfo File
+      {
+        get; set;
+      }
+#endif
       [Category( "Non-Numeric Editors" )]
       [Description( "This property uses a PrimitiveTypeCollectionEditor as the default editor." )]
       public List<string> ListOfStrings
