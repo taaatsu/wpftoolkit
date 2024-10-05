@@ -7,7 +7,7 @@
   </PropertyGroup>
   <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
   <PropertyGroup>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <RootNamespace>Xceed.Wpf.Toolkit</RootNamespace>
     <AssemblyName>Xceed.Wpf.Toolkit.NET5</AssemblyName>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
@@ -919,6 +919,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Zoombox\Zoombox.Icon.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\JumonCoreLibrary\JumonCoreLibrary.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="PropertyGrid\Images\SortAscending16_White.png" />

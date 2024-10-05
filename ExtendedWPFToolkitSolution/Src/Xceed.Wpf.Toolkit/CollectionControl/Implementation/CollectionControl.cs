@@ -634,6 +634,7 @@ namespace Xceed.Wpf.Toolkit
       //IList
       else if( collection is IList )
       {
+        /*
         var list = ( IList )collection;
 
         //the easiest way to persist changes to the source is to just clear the source list and then add all items to it.
@@ -654,6 +655,15 @@ namespace Xceed.Wpf.Toolkit
             list.Add( item );
           }
         }
+        */
+
+        //上記の方法だと、Obsabable系のコレクションだと、全削除がWPFに通知されてしまい、
+        //Itemが総崩れで削除されるじゃないか！！！！
+        //いまあるリストの状態を保持しつつ、挿入するのが筋！！！
+        var list = ( IList )collection;
+        Jumon.Collections.List_Extentions.Imitate(list, sourceList);
+        //TODO:★★list.IsFixedSizeのパターンとかもケアが必要だけど、取り急ぎコレで
+
       }
       else
       {
