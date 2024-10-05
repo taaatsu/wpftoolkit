@@ -2,7 +2,7 @@
    
    Toolkit for WPF
 
-   Copyright (C) 2007-2022 Xceed Software Inc.
+   Copyright (C) 2007-2024 Xceed Software Inc.
 
    This program is provided to you under the terms of the XCEED SOFTWARE, INC.
    COMMUNITY LICENSE AGREEMENT (for non-commercial use) as published at 
@@ -59,6 +59,9 @@ namespace Xceed.Wpf.Toolkit
 
     public RangeSlider()
     {
+
+      Core.Message.ShowMessage();
+
       this.SizeChanged += this.RangeSlider_SizeChanged;
     }
 
@@ -118,9 +121,6 @@ namespace Xceed.Wpf.Toolkit
     #endregion //AutoToolTipPrecision
 
     #region HigherRangeBackground
-    /// <summary>
-    /// Get/Set the Brush for the Range between Higher and Maximum values. (Brush)
-    /// </summary>
 
     public static readonly DependencyProperty HigherRangeBackgroundProperty = DependencyProperty.Register( "HigherRangeBackground", typeof( Brush ), typeof( RangeSlider )
       , new FrameworkPropertyMetadata( Brushes.Transparent ) );
@@ -140,9 +140,6 @@ namespace Xceed.Wpf.Toolkit
     #endregion HigherRangeBackground
 
     #region HigherRangeStyle
-    /// <summary>
-    /// Get/Set the Style for the Range between Higher and Maximum values. (Style)
-    /// </summary>
 
     public static readonly DependencyProperty HigherRangeStyleProperty = DependencyProperty.Register( "HigherRangeStyle", typeof( Style ), typeof( RangeSlider )
       , new FrameworkPropertyMetadata( null ) );
@@ -162,10 +159,6 @@ namespace Xceed.Wpf.Toolkit
     #endregion HigherRangeStyle
 
     #region HigherRangeWidth
-    /// <summary>
-    /// HigherRangeWidth property is a readonly property, used to calculate the percentage of the HigherRange within the entire min/max range.
-    /// </summary>
-    /// 
 
     private static readonly DependencyPropertyKey HigherRangeWidthPropertyKey = DependencyProperty.RegisterAttachedReadOnly( "HigherRangeWidth", typeof( double )
         , typeof( RangeSlider ), new PropertyMetadata( 0d ) );
@@ -188,9 +181,6 @@ namespace Xceed.Wpf.Toolkit
     #endregion HigherRangeWidth
 
     #region HigherThumbBackground
-    /// <summary>
-    /// Get/Set the Brush for the HigherValue thumb's background [active state]. (Brush)
-    /// </summary>
 
     public static readonly DependencyProperty HigherThumbBackgroundProperty = DependencyProperty.Register( "HigherThumbBackground", typeof( Brush ), typeof( RangeSlider ) );
 
@@ -209,9 +199,6 @@ namespace Xceed.Wpf.Toolkit
     #endregion HigherThumbBackground
 
     #region HigherValue
-    /// <summary>
-    /// HigherValue property represents the higher value within the selected range.
-    /// </summary>
     public static readonly DependencyProperty HigherValueProperty = DependencyProperty.Register( "HigherValue", typeof( double ), typeof( RangeSlider )
       , new FrameworkPropertyMetadata( 0d, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, RangeSlider.OnHigherValueChanged, RangeSlider.OnCoerceHigherValueChanged ) );
 
@@ -262,9 +249,6 @@ namespace Xceed.Wpf.Toolkit
     #endregion HigherValue
 
     #region IsDeferredUpdateValues
-    /// <summary>
-    /// Gets/Sets if the LowerValue and HigherValue should be updated only on mouse up.
-    /// </summary>
     public static readonly DependencyProperty IsDeferredUpdateValuesProperty = DependencyProperty.Register( "IsDeferredUpdateValues", typeof( bool ), typeof( RangeSlider )
       , new FrameworkPropertyMetadata( false ) );
 
@@ -302,9 +286,6 @@ namespace Xceed.Wpf.Toolkit
     #endregion IsSnapToTickEnabled
 
     #region LowerRangeBackground
-    /// <summary>
-    /// Get/Set the Brush for the Range between Minimum and Lower values. (Brush)
-    /// </summary>
 
     public static readonly DependencyProperty LowerRangeBackgroundProperty = DependencyProperty.Register( "LowerRangeBackground", typeof( Brush ), typeof( RangeSlider )
       , new FrameworkPropertyMetadata( Brushes.Transparent ) );
@@ -324,9 +305,6 @@ namespace Xceed.Wpf.Toolkit
     #endregion LowerRangeBackground
 
     #region LowerRangeStyle
-    /// <summary>
-    /// Get/Set the Style for the Range between Minimum and Lower values. (Style)
-    /// </summary>
 
     public static readonly DependencyProperty LowerRangeStyleProperty = DependencyProperty.Register( "LowerRangeStyle", typeof( Style ), typeof( RangeSlider )
       , new FrameworkPropertyMetadata( null ) );
@@ -346,10 +324,6 @@ namespace Xceed.Wpf.Toolkit
     #endregion LowerRangeStyle
 
     #region LowerRangeWidth
-    /// <summary>
-    /// LowerRangeWidth property is a readonly property, used to calculate the percentage of the LowerRange, within the entire min/max range.
-    /// </summary>
-    /// 
 
     private static DependencyPropertyKey LowerRangeWidthPropertyKey = DependencyProperty.RegisterAttachedReadOnly( "LowerRangeWidth", typeof( double )
       , typeof( RangeSlider ), new PropertyMetadata( 0d ) );
@@ -371,9 +345,6 @@ namespace Xceed.Wpf.Toolkit
     #endregion LowerRangeWidth
 
     #region LowerThumbBackground
-    /// <summary>
-    /// Get/Set the Brush for the LowerValue thumb's background [active state]. (Brush)
-    /// </summary>
 
     public static readonly DependencyProperty LowerThumbBackgroundProperty = DependencyProperty.Register( "LowerThumbBackground", typeof( Brush ), typeof( RangeSlider ) );
 
@@ -392,9 +363,6 @@ namespace Xceed.Wpf.Toolkit
     #endregion LowerThumbBackground
 
     #region LowerValue
-    /// <summary>
-    /// LowerValue property represents the lower value within the selected range.
-    /// </summary>
     public static readonly DependencyProperty LowerValueProperty = DependencyProperty.Register( "LowerValue", typeof( double ), typeof( RangeSlider )
       , new FrameworkPropertyMetadata( 0d, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, RangeSlider.OnLowerValueChanged, RangeSlider.OnCoerceLowerValueChanged ) );
 
@@ -445,9 +413,6 @@ namespace Xceed.Wpf.Toolkit
     #endregion LowerValue
 
     #region Maximum
-    /// <summary>
-    /// Maximum property represents the maximum value, which can be selected, in a range.
-    /// </summary>
     public static readonly DependencyProperty MaximumProperty = DependencyProperty.Register( "Maximum", typeof( double ), typeof( RangeSlider )
       , new FrameworkPropertyMetadata( RangeSlider.OnMaximumChanged ) );
 
@@ -480,9 +445,6 @@ namespace Xceed.Wpf.Toolkit
     #endregion Maximum
 
     #region Minimum
-    /// <summary>
-    /// Minimum property represents the minimum value, which can be selected, in a range.
-    /// </summary>
     public static readonly DependencyProperty MinimumProperty = DependencyProperty.Register( "Minimum", typeof( double ), typeof( RangeSlider )
       , new FrameworkPropertyMetadata( RangeSlider.OnMinimumChanged ) );
 
@@ -517,9 +479,6 @@ namespace Xceed.Wpf.Toolkit
 
     #region Orientation
 
-    /// <summary>
-    /// Get/Set the RangeSlider's orientation.
-    /// </summary>
     public static readonly DependencyProperty OrientationProperty = DependencyProperty.Register( "Orientation", typeof( Orientation ), typeof( RangeSlider ),
         new FrameworkPropertyMetadata( Orientation.Horizontal, RangeSlider.OnOrientationChanged ) );
 
@@ -551,9 +510,6 @@ namespace Xceed.Wpf.Toolkit
     #endregion //Orientation
 
     #region RangeBackground
-    /// <summary>
-    /// Get/Set the Brush for the Range between Lower and Higher values [active state]. (Brush)
-    /// </summary>
 
     public static readonly DependencyProperty RangeBackgroundProperty = DependencyProperty.Register( "RangeBackground", typeof( Brush ), typeof( RangeSlider )
       , new FrameworkPropertyMetadata( Brushes.Transparent ) );
@@ -573,9 +529,6 @@ namespace Xceed.Wpf.Toolkit
     #endregion RangeBackground
 
     #region RangeStyle
-    /// <summary>
-    /// Get/Set the Style for the Range between Lower and Higher values. (Style)
-    /// </summary>
 
     public static readonly DependencyProperty RangeStyleProperty = DependencyProperty.Register( "RangeStyle", typeof( Style ), typeof( RangeSlider )
       , new FrameworkPropertyMetadata( null ) );
@@ -595,9 +548,6 @@ namespace Xceed.Wpf.Toolkit
     #endregion RangeStyle
 
     #region RangeWidth
-    /// <summary>
-    /// RangeWidth property is a readonly property, used to calculate the percentage of the range within the entire min/max range.
-    /// </summary>
 
     private static readonly DependencyPropertyKey RangeWidthPropertyKey = DependencyProperty.RegisterAttachedReadOnly( "RangeWidth", typeof( double )
       , typeof( RangeSlider ), new PropertyMetadata( 0d ) );
@@ -619,9 +569,6 @@ namespace Xceed.Wpf.Toolkit
     #endregion RangeWidth
 
     #region Step
-    /// <summary>
-    /// Step property is used to identify the RangeSlider's size of individual move, when clicking on the LowerRange, HigherRange, not while scrolling the thumbs.
-    /// </summary>
     private static readonly DependencyProperty StepProperty = DependencyProperty.Register( "Step", typeof( double ), typeof( RangeSlider )
       , new PropertyMetadata( 1.0, null, RangeSlider.CoerceStep ) );
 
@@ -648,9 +595,6 @@ namespace Xceed.Wpf.Toolkit
     #endregion
 
     #region TickFrequency
-    /// <summary>       
-    /// Gets or sets the interval between tick marks.
-    /// </summary>
     public static readonly DependencyProperty TickFrequencyProperty = DependencyProperty.Register( "TickFrequency", typeof( double ), typeof( RangeSlider )
       , new FrameworkPropertyMetadata( 1d, RangeSlider.OnTickFrequencyChanged ) );
 

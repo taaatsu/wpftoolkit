@@ -2,7 +2,7 @@
 
    Toolkit for WPF
 
-   Copyright (C) 2007-2022 Xceed Software Inc.
+   Copyright (C) 2007-2024 Xceed Software Inc.
 
    This program is provided to you under the terms of the XCEED SOFTWARE, INC.
    COMMUNITY LICENSE AGREEMENT (for non-commercial use) as published at 
@@ -31,7 +31,39 @@ namespace Xceed.Wpf.Toolkit.LiveExplorer.Samples.SlideShow.Views
     {
       InitializeComponent();
 
+#if !OPEN_SOURCE
 
+      ObservableCollection<PictureItem> pictures = new ObservableCollection<PictureItem>();
+      for( int i = 1; i <= 9; i++ )
+      {
+        BitmapImage image = new BitmapImage();
+        image.BeginInit();
+        string filename = ( "pack://application:,,,/" +
+#if !OPEN_SOURCE
+#if NETCORE
+                  "Xceed.Wpf.Toolkit.LiveExplorer.NETCore"
+#else
+                  "Xceed.Wpf.Toolkit.LiveExplorer"
+#endif
+#else
+                "Xceed.Wpf.Toolkit.LiveExplorer"
+#endif
+                  + ";component/Samples/SlideShow/Resources/photo_" + i + ".jpg" );
+        image.UriSource = new Uri( filename, UriKind.RelativeOrAbsolute );
+        pictures.Add( new PictureItem( "Picture " + i, image ) );
+        image.EndInit();
+      }
+      foreach( PictureItem picItem in pictures )
+      {
+        SlideShowItem aSlideShowItem = new SlideShowItem();
+        Image image = new Image();
+        image.Source = picItem.Photo;
+        image.Stretch = Stretch.Fill;
+        aSlideShowItem.Item = image;
+        aSlideShowItem.Description = picItem.Description;
+        _slideShow.Items.Add( aSlideShowItem );
+      }
+#endif
     }
 
   }

@@ -9,7 +9,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0-windows</TargetFramework>
     <RootNamespace>Xceed.Wpf.Toolkit</RootNamespace>
-    <AssemblyName>Xceed.Wpf.Toolkit.NET5</AssemblyName>
+    <AssemblyName>Xceed.Wpf.Toolkit</AssemblyName>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
@@ -367,6 +367,7 @@
     <Compile Include="Core\Converters\TabItemSizeConverter.cs" />
     <Compile Include="Core\GenericTextBlock.cs" />
     <Compile Include="Core\ImageUriExtension.cs" />
+    <Compile Include="Core\Message.cs" />
     <Compile Include="Core\PackUriExtension.cs" />
     <Compile Include="Core\ResourceDictionary.cs" />
     <Compile Include="DateTimePicker\Implementation\Converters\BorderThicknessConverter.cs" />
@@ -632,6 +633,7 @@
     <Compile Include="TimePicker\Implementation\TimePicker.cs" />
     <Compile Include="TimeSpanUpDown\Implementation\TimeSpanUpDown.cs" />
     <Compile Include="Utils\Exceptions\ThrowException.cs" />
+    <Compile Include="Utils\Licensing\LicenseOrigin.cs" />
     <Compile Include="VisualStates.cs" />
     <Compile Include="MessageBox\Implementation\VisualStates.MessageBox.cs" />
     <Compile Include="WatermarkComboBox\Implementation\WatermarkComboBox.cs" />

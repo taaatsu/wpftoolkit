@@ -2,7 +2,7 @@
 
    Toolkit for WPF
 
-   Copyright (C) 2007-2022 Xceed Software Inc.
+   Copyright (C) 2007-2024 Xceed Software Inc.
 
    This program is provided to you under the terms of the XCEED SOFTWARE, INC.
    COMMUNITY LICENSE AGREEMENT (for non-commercial use) as published at 
@@ -25,7 +25,7 @@
             The Calculator is a control used for performing mathematical calculations.
         </Paragraph>
     </local:DemoView.Description>
-
+    
    <Grid>
       <Grid.RowDefinitions>
          <RowDefinition Height="Auto" />
