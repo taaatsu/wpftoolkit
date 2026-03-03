@@ -112,7 +112,7 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid
       {
         var listType = ListUtilities.GetListItemType( propertyType );
 
-        // A List of T
+        // A List of TReadOnly
         if( listType != null )
         {
           if( !listType.IsPrimitive && !listType.Equals( typeof( String ) ) && !listType.IsEnum )
@@ -124,7 +124,7 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid
         {
           var dictionaryType = ListUtilities.GetDictionaryItemsType( propertyType );
           var collectionType = ListUtilities.GetCollectionItemType( propertyType );
-          // A dictionary of T or a Collection of T or an ICollection
+          // A dictionary of TReadOnly or a Collection of TReadOnly or an ICollection
           if( ( dictionaryType != null ) || ( collectionType != null ) || typeof( ICollection ).IsAssignableFrom( propertyType ) )
           {
             editor = new Xceed.Wpf.Toolkit.PropertyGrid.Editors.CollectionEditor();

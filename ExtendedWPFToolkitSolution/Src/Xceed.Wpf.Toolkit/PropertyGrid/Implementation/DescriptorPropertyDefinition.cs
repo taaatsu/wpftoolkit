@@ -91,7 +91,7 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid
       var selectedObject = this.SelectedObject;
       var propertyName = this.PropertyDescriptor.Name;
 
-      //Bind the value property with the source object.
+      //Bind_Old the value property with the source object.
       var binding = new Binding( propertyName )
       {
         Source = this.GetValueInstance( selectedObject ),

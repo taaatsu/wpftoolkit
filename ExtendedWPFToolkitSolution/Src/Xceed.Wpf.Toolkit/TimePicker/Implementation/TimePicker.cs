@@ -440,7 +440,7 @@ namespace Xceed.Wpf.Toolkit
       this.ClosePopup( true );
     }
 
-    #endregion //Event Handlers
+    #endregion //Raised Handlers
 
     #region Methods
 

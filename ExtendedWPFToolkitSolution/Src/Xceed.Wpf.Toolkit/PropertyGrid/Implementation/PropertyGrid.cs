@@ -1080,7 +1080,7 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid
     }
 
 
-    #endregion //Event Handlers
+    #endregion //Raised Handlers
 
     #region Commands
 
@@ -1447,7 +1447,7 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid
       }
     }
 
-    #endregion //PropertiesGenerated Event
+    #endregion //PropertiesGenerated Raised
 
     public static void AddClearPropertyItemHandler( UIElement element, PropertyItemEventHandler handler )
     {

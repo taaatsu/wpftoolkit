@@ -104,26 +104,26 @@ namespace Xceed.Wpf.AvalonDock.Controls
 
       if( fwAsAnchorable != null )
       {
-        // Raise PreviewDock Event
+        // Raise PreviewDock Raised
         var draggedLayoutAnchorable = floatingWindow.Descendents().OfType<LayoutAnchorable>().FirstOrDefault( l => l != null );
         manager.RaisePreviewDockEvent( draggedLayoutAnchorable );
 
         this.Drop( fwAsAnchorable );
 
-        // Raise Dock Event
+        // Raise Dock Raised
         manager.RaiseDockedEvent( draggedLayoutAnchorable );
       }
       else
       {
         var fwAsDocument = floatingWindow as LayoutDocumentFloatingWindow;
 
-        // Raise PreviewDock Event
+        // Raise PreviewDock Raised
         var draggedLayoutDocument = floatingWindow.Descendents().OfType<LayoutDocument>().FirstOrDefault( l => l != null );
         manager.RaisePreviewDockEvent( draggedLayoutDocument );
 
         this.Drop( fwAsDocument );
 
-        // Raise Dock Event
+        // Raise Dock Raised
         manager.RaiseDockedEvent( draggedLayoutDocument );
       }
 

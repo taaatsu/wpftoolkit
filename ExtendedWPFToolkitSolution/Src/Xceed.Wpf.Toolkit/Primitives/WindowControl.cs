@@ -843,7 +843,7 @@ namespace Xceed.Wpf.Toolkit.Primitives
 
 
 
-    #endregion // Event Handler
+    #endregion // Raised Handler
 
     #region Internal Methods
 

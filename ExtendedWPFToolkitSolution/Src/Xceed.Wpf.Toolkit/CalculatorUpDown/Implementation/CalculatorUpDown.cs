@@ -334,7 +334,7 @@ namespace Xceed.Wpf.Toolkit
       CloseCalculatorUpDown( true );
     }
 
-    #endregion //Event Handlers
+    #endregion //Raised Handlers
 
     #region Methods
 

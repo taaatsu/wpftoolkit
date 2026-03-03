@@ -172,7 +172,7 @@ namespace Xceed.Wpf.Toolkit
       }
     }
 
-    #endregion //CollectionUpdated Event
+    #endregion //CollectionUpdated Raised
 
     #endregion
   }

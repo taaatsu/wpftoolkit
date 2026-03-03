@@ -35,7 +35,7 @@ namespace Microsoft.Windows.Shell
 
   internal class WindowChromeWorker : DependencyObject
   {
-    // Delegate signature used for Dispatcher.BeginInvoke.
+    // Delegate signature used for Dispatcher.PostForProperty.
     private delegate void _Action();
 
     #region Fields

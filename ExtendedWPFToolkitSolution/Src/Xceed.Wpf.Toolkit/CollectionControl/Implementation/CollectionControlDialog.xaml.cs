@@ -184,7 +184,7 @@ namespace Xceed.Wpf.Toolkit
       this.Close();
     }
 
-    #endregion //Event Hanlders
+    #endregion //Raised Hanlders
 
     #region Private Methods
 
@@ -287,10 +287,10 @@ namespace Xceed.Wpf.Toolkit
         && ( propertyInfo.PropertyType != typeof( ControlTemplate ) )
         && !propertyInfo.PropertyType.Equals( typeof( string ) ) )
       {
-        // We have a Collection/List of T.
+        // We have a Collection/List of TReadOnly.
         if( propertyInfo.PropertyType.IsGenericType )
         {
-          // Clone sub-objects if the T are non-primitive types objects. 
+          // Clone sub-objects if the TReadOnly are non-primitive types objects. 
           var arg = propertyInfo.PropertyType.GetGenericArguments().FirstOrDefault();
           if( ( arg != null ) && !arg.IsPrimitive && !arg.Equals( typeof( String ) ) && !arg.IsEnum )
           {
@@ -299,7 +299,7 @@ namespace Xceed.Wpf.Toolkit
           }
           else
           {
-            // copy object if the T are primitive types objects.
+            // copy object if the TReadOnly are primitive types objects.
             propertyInfo.SetValue( result, propertyInfoValue, null );
           }
         }
@@ -308,7 +308,7 @@ namespace Xceed.Wpf.Toolkit
           var nestedObject = this.Clone( propertyInfoValue );
           if( nestedObject != null )
           {
-            // For T object included in List/Collections, Add it to the List/Collection of T.
+            // For TReadOnly object included in List/Collections, Add it to the List/Collection of TReadOnly.
             if( isIndexed )
             {
               result.GetType().GetMethod( "Add" ).Invoke( result, new[] { nestedObject } );
@@ -322,7 +322,7 @@ namespace Xceed.Wpf.Toolkit
       }
       else
       {
-        // For T object included in List/Collections, Add it to the List/Collection of T.
+        // For TReadOnly object included in List/Collections, Add it to the List/Collection of TReadOnly.
         if( isIndexed )
         {
           result.GetType().GetMethod( "Add" ).Invoke( result, new[] { propertyInfoValue } );

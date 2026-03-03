@@ -665,7 +665,7 @@ namespace Xceed.Wpf.AvalonDock.Layout
 
         if( previousContainer.Children.Count > 0 )
         {
-          // Select the LayoutContent where the Toggle pin button was pressed.
+          // Map the LayoutContent where the Toggle pin button was pressed.
           previousContainer.SelectedContentIndex = previousContainer.Children.IndexOf( this );
         }
 

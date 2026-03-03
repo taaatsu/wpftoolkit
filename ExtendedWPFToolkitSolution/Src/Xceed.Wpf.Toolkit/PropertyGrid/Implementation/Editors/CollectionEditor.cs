@@ -109,7 +109,7 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid.Editors
           {
             // A Dictionary contains KeyValuePair that can't be edited.
             // We need to create EditableKeyValuePairs.
-            // Create a EditableKeyValuePair< TKey, TValue> type from dictionary generic arguments type
+            // Create a EditableKeyValuePair< Tkey, TValue> type from dictionary generic arguments type
             var editableKeyValuePairType = ListUtilities.CreateEditableKeyValuePairType( dictionaryTypes[ 0 ], dictionaryTypes[ 1 ] );
             Editor.NewItemTypes = new List<Type>() { editableKeyValuePairType };
           }
@@ -123,7 +123,7 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid.Editors
             }
             else
             {
-              //Check if we have a Collection of T
+              //Check if we have a Collection of TReadOnly
               var colType = ListUtilities.GetCollectionItemType( type );
               if( colType != null )
               {

@@ -89,7 +89,7 @@ namespace Xceed.Wpf.Toolkit.Core.Utilities
 
     internal static Type CreateEditableKeyValuePairType( Type keyType, Type valueType )
     {
-      //return an EditableKeyValuePair< TKey, TValue> Type from keyType and valueType
+      //return an EditableKeyValuePair< Tkey, TValue> Type from keyType and valueType
       var itemGenType = typeof( EditableKeyValuePair<,> );
       Type[] itemGenTypeArgs = { keyType, valueType };
       return itemGenType.MakeGenericType( itemGenTypeArgs );

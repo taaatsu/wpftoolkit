@@ -559,7 +559,7 @@ namespace Xceed.Wpf.Toolkit
       }
     }
 
-    #endregion //Cancel Event
+    #endregion //Cancel Raised
 
     #region PageChanged Event
 
@@ -576,7 +576,7 @@ namespace Xceed.Wpf.Toolkit
       }
     }
 
-    #endregion //PageChanged Event
+    #endregion //PageChanged Raised
 
     #region Finish Event
 
@@ -593,7 +593,7 @@ namespace Xceed.Wpf.Toolkit
       }
     }
 
-    #endregion //Finish Event
+    #endregion //Finish Raised
 
     #region Help Event
 
@@ -610,7 +610,7 @@ namespace Xceed.Wpf.Toolkit
       }
     }
 
-    #endregion //Help Event
+    #endregion //Help Raised
 
     #region Next Event
 
@@ -629,7 +629,7 @@ namespace Xceed.Wpf.Toolkit
       }
     }
 
-    #endregion //Next Event
+    #endregion //Next Raised
 
     #region Previous Event
 
@@ -648,7 +648,7 @@ namespace Xceed.Wpf.Toolkit
       }
     }
 
-    #endregion //Previous Event
+    #endregion //Previous Raised
 
     #endregion //Events
 

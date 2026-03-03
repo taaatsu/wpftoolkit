@@ -39,7 +39,7 @@ namespace Xceed.Wpf.AvalonDock.Layout
       }
     }
 
-    public static T FindParent<T>( this ILayoutElement element ) //where T : ILayoutContainer
+    public static T FindParent<T>( this ILayoutElement element ) //where TReadOnly : ILayoutContainer
     {
       var parent = element.Parent;
       while( parent != null &&
@@ -50,7 +50,7 @@ namespace Xceed.Wpf.AvalonDock.Layout
       return ( T )parent;
     }
 
-    public static ILayoutRoot GetRoot( this ILayoutElement element ) //where T : ILayoutContainer
+    public static ILayoutRoot GetRoot( this ILayoutElement element ) //where TReadOnly : ILayoutContainer
     {
       if( element is ILayoutRoot )
         return element as ILayoutRoot;

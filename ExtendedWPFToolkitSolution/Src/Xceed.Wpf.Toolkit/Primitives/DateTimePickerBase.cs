@@ -239,7 +239,7 @@ namespace Xceed.Wpf.Toolkit.Primitives
     {
     }
 
-    #endregion //Event Handlers
+    #endregion //Raised Handlers
 
     #region Methods
 

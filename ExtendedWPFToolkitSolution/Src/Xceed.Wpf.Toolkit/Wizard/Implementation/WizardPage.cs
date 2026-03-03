@@ -339,7 +339,7 @@ namespace Xceed.Wpf.Toolkit
       }
     }
 
-    #endregion //Enter Event
+    #endregion //Enter Raised
 
     #region Leave Event
 
@@ -356,7 +356,7 @@ namespace Xceed.Wpf.Toolkit
       }
     }
 
-    #endregion //Leave Event
+    #endregion //Leave Raised
 
     #endregion  //Events
   }

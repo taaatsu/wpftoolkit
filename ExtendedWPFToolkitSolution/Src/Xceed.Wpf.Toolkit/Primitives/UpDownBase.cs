@@ -691,7 +691,7 @@ true );
       }
     }
 
-    #endregion //Event Handlers
+    #endregion //Raised Handlers
 
     #region Events
 
@@ -701,7 +701,7 @@ true );
 
     #region ValueChanged Event
 
-    //Due to a bug in Visual Studio, you cannot create event handlers for generic T args in XAML, so I have to use object instead.
+    //Due to a bug in Visual Studio, you cannot create event handlers for generic TReadOnly args in XAML, so I have to use object instead.
     public static readonly RoutedEvent ValueChangedEvent = EventManager.RegisterRoutedEvent( "ValueChanged", RoutingStrategy.Bubble, typeof(
 
 RoutedPropertyChangedEventHandler<object> ), typeof( UpDownBase<T> ) );

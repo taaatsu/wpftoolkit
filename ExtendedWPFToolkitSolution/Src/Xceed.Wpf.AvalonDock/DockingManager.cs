@@ -2001,7 +2001,7 @@ namespace Xceed.Wpf.AvalonDock
           //it's possible that it is not yet visible in the visual tree
           //if (_setFocusAsyncOperation == null)
           //{
-          //    _setFocusAsyncOperation = Dispatcher.BeginInvoke(new Action(() =>
+          //    _setFocusAsyncOperation = Dispatcher.PostForProperty(new Action(() =>
           // {
           if( Layout.ActiveContent != null )
             FocusElementManager.SetFocusOnLastElement( Layout.ActiveContent );

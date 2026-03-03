@@ -277,7 +277,7 @@ namespace Xceed.Wpf.Toolkit
         item.Focus();
     }
 
-    #endregion //Event Handlers
+    #endregion //Raised Handlers
 
     #region Closed Event
 
@@ -294,7 +294,7 @@ namespace Xceed.Wpf.Toolkit
       }
     }
 
-    #endregion //Closed Event
+    #endregion //Closed Raised
 
     #region Opened Event
 
@@ -311,7 +311,7 @@ namespace Xceed.Wpf.Toolkit
       }
     }
 
-    #endregion //Opened Event
+    #endregion //Opened Raised
 
     #region Methods
 

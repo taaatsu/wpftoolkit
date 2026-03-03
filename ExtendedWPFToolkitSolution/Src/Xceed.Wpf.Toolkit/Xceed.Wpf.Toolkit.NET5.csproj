@@ -4,16 +4,22 @@
     <BaseIntermediateOutputPath>obj\net5\</BaseIntermediateOutputPath>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <EnableDefaultItems>false</EnableDefaultItems>
+    <Configurations>Debug;Release;TradomCoreまで</Configurations>
   </PropertyGroup>
   <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
   <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net9.0-windows</TargetFramework>
     <RootNamespace>Xceed.Wpf.Toolkit</RootNamespace>
     <AssemblyName>Xceed.Wpf.Toolkit</AssemblyName>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;DEBUG;NET5</DefineConstants>
+    <DebugType>full</DebugType>
+    <DebugSymbols>True</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TradomCoreまで|AnyCPU'">
     <DefineConstants>TRACE;DEBUG;NET5</DefineConstants>
     <DebugType>full</DebugType>
     <DebugSymbols>True</DebugSymbols>
@@ -925,7 +931,7 @@
     <EmbeddedResource Include="Zoombox\Zoombox.Icon.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\..\JumonCoreLibrary\JumonCoreLibrary.csproj" />
+    <ProjectReference Include="..\..\..\..\..\..\Projects\JumonCoreLibrary\JumonCoreLibrary.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="PropertyGrid\Images\SortAscending16_White.png" />

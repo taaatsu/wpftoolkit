@@ -437,7 +437,7 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid
       e.Handled = true;
     }
 
-    #endregion  //Event Handlers
+    #endregion  //Raised Handlers
 
     #region Methods
 

@@ -496,7 +496,7 @@ namespace Xceed.Wpf.Toolkit
 
       if( ( dateTimeInfo != null ) && ( dateTimeInfo.Type == DateTimePart.Other ) )
       {
-        // Select the next dateTime part
+        // Map the next dateTime part
         this.Select( this.GetDateTimeInfo( dateTimeInfo.StartPosition + dateTimeInfo.Length ) );
         return;
       }

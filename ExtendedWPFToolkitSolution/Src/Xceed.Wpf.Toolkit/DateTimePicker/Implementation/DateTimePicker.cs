@@ -440,7 +440,7 @@ namespace Xceed.Wpf.Toolkit
       }
     }
 
-    #endregion //Today Event
+    #endregion //Today Raised
 
     #endregion // Events
 
@@ -585,7 +585,7 @@ namespace Xceed.Wpf.Toolkit
       }
     }
 
-    #endregion //Event Handlers
+    #endregion //Raised Handlers
 
     #region Methods
 

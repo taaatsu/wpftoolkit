@@ -3,16 +3,22 @@
   <PropertyGroup>
     <BaseIntermediateOutputPath>obj\net5\</BaseIntermediateOutputPath>
     <EnableDefaultItems>false</EnableDefaultItems>
+    <Configurations>Debug;Release;TradomCoreまで</Configurations>
   </PropertyGroup>
   <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
   <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net9.0-windows</TargetFramework>
     <RootNamespace>Xceed.Wpf.AvalonDock</RootNamespace>
     <AssemblyName>Xceed.Wpf.AvalonDock</AssemblyName>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;DEBUG;NET5</DefineConstants>
+    <DebugType>full</DebugType>
+    <DebugSymbols>True</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TradomCoreまで|AnyCPU'">
     <DefineConstants>TRACE;DEBUG;NET5</DefineConstants>
     <DebugType>full</DebugType>
     <DebugSymbols>True</DebugSymbols>

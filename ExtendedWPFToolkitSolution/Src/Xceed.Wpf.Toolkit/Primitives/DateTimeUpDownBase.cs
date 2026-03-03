@@ -237,7 +237,7 @@ namespace Xceed.Wpf.Toolkit.Primitives
       {
         this.Dispatcher.BeginInvoke( DispatcherPriority.Background, new Action( () =>
         {
-          // Select the next dateTime part
+          // Map the next dateTime part
           this.Select( this.GetDateTimeInfo( dateTimeInfo.StartPosition + dateTimeInfo.Length ) );
         }
         ) );

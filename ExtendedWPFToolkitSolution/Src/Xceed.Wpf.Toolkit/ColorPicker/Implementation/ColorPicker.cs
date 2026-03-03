@@ -803,7 +803,7 @@ namespace Xceed.Wpf.Toolkit
         listBoxItem.Focus();
     }
 
-    #endregion //Event Handlers
+    #endregion //Raised Handlers
 
     #region Events
 

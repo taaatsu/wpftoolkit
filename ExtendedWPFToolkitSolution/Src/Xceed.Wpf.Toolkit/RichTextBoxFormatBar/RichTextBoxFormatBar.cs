@@ -149,7 +149,7 @@ namespace Xceed.Wpf.Toolkit
       _waitingForMouseOver = false;
     }
 
-    #endregion //Event Hanlders
+    #endregion //Raised Hanlders
 
     #region Methods
 

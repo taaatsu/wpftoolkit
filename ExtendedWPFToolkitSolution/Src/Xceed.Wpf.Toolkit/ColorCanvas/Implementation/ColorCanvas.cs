@@ -467,7 +467,7 @@ namespace Xceed.Wpf.Toolkit
       SetHexadecimalStringProperty( textbox.Text, true );
     }
 
-    #endregion //Event Handlers
+    #endregion //Raised Handlers
 
     #region Events
 

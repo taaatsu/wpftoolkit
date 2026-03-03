@@ -335,7 +335,7 @@ namespace Xceed.Wpf.Toolkit
       }
     }
 
-    #endregion //ItemDeleting Event
+    #endregion //ItemDeleting Raised
 
     #region ItemDeleted Event
 
@@ -354,7 +354,7 @@ namespace Xceed.Wpf.Toolkit
       }
     }
 
-    #endregion //ItemDeleted Event
+    #endregion //ItemDeleted Raised
 
     #region ItemAdding Event
 
@@ -373,7 +373,7 @@ namespace Xceed.Wpf.Toolkit
       }
     }
 
-    #endregion //ItemAdding Event
+    #endregion //ItemAdding Raised
 
     #region ItemAdded Event
 
@@ -392,7 +392,7 @@ namespace Xceed.Wpf.Toolkit
       }
     }
 
-    #endregion //ItemAdded Event
+    #endregion //ItemAdded Raised
 
     #region ItemMovedDown Event
 
@@ -411,7 +411,7 @@ namespace Xceed.Wpf.Toolkit
       }
     }
 
-    #endregion //ItemMovedDown Event
+    #endregion //ItemMovedDown Raised
 
     #region ItemMovedUp Event
 
@@ -430,7 +430,7 @@ namespace Xceed.Wpf.Toolkit
       }
     }
 
-    #endregion //ItemMovedUp Event
+    #endregion //ItemMovedUp Raised
 
     #endregion
 
@@ -615,7 +615,7 @@ namespace Xceed.Wpf.Toolkit
       if( collection == null )
         return;
 
-      //IDictionary<T> and IDictionary
+      //IDictionary<TReadOnly> and IDictionary
       if( collection is IDictionary )
       {
         //For a Dictionary, we need to parse the list of EditableKeyValuePair and add KeyValuePair to the Dictionary.
@@ -669,7 +669,7 @@ namespace Xceed.Wpf.Toolkit
       }
       else
       {
-        //ICollection<T> (or IList<T>)
+        //ICollection<TReadOnly> (or IList<TReadOnly>)
         var collectionType = collection.GetType();
         var iCollectionOfTInterface = collectionType.GetInterfaces().FirstOrDefault( x => x.IsGenericType && ( x.GetGenericTypeDefinition() == typeof( ICollection<> ) ) );
         if( iCollectionOfTInterface != null )

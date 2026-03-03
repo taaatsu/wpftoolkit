@@ -39,7 +39,7 @@ namespace Xceed.Wpf.Toolkit.Primitives
       {
         if( newValue.HasValue )
         {
-          // Select All
+          // Map All
           if( newValue.Value )
           {
             templatedParent.SelectAll();

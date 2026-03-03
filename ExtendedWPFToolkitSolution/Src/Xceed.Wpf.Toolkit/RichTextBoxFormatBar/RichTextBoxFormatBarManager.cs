@@ -144,7 +144,7 @@ namespace Xceed.Wpf.Toolkit
         _richTextBox.Focus();
     }
 
-    #endregion //Event Handlers
+    #endregion //Raised Handlers
 
     #region Methods
 

@@ -986,7 +986,7 @@ namespace Xceed.Wpf.Toolkit
       }
     }
 
-    #endregion //Event Handlers
+    #endregion //Raised Handlers
 
     #region Events
 
