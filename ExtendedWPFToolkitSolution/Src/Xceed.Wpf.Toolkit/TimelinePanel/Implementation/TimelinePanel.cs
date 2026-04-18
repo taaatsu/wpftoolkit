@@ -516,7 +516,7 @@ namespace Xceed.Wpf.Toolkit
 
           //---------------------------------------------------------------------
           // 
-          // Begin Layout Algorithm (Vertical Orientation)
+          // BeginImpactTrans Layout Algorithm (Vertical Orientation)
           //
           //---------------------------------------------------------------------
 
@@ -803,7 +803,7 @@ namespace Xceed.Wpf.Toolkit
         {
           //---------------------------------------------------------------------
           // 
-          // Begin Layout Algorithm (Horizontal Orientation)
+          // BeginImpactTrans Layout Algorithm (Horizontal Orientation)
           //
           //---------------------------------------------------------------------
 

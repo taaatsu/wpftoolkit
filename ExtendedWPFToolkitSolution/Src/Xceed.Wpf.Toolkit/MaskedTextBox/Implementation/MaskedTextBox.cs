@@ -1353,7 +1353,7 @@ namespace Xceed.Wpf.Toolkit
 
     internal override void OnIMECompositionEnded( CachedTextInfo cachedTextInfo )
     {
-      // End of IME Composition.  Restore the critical infos.
+      // EndImpactTrans of IME Composition.  Restore the critical infos.
       this.ForceText( cachedTextInfo.Text, false );
       this.CaretIndex = cachedTextInfo.CaretIndex;
       this.SelectionStart = cachedTextInfo.SelectionStart;

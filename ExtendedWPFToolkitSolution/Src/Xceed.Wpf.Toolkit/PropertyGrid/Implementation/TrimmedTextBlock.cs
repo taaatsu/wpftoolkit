@@ -141,7 +141,7 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid
       run.Background = this.HighlightedBrush;
       this.Inlines.Add( run );
 
-      // End Un-Highlighted text
+      // EndImpactTrans Un-Highlighted text
       run = new Run( endUnHighlightedText );
       this.Inlines.Add( run );
     }
