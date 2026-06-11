@@ -34,7 +34,10 @@ namespace Xceed.Wpf.Toolkit.PropertyGrid
   {
     internal static T GetAttribute<T>( PropertyDescriptor property ) where T : Attribute
     {
-      return property.Attributes.OfType<T>().FirstOrDefault();
+      //return property.Attributes.OfType<T>().FirstOrDefault();
+
+      //属性がオーバーライドプロパティで複数ある場合を考慮し、後方の属性を取得利用する方向に変更
+      return property.Attributes.OfType<T>().LastOrDefault();
     }
 
 
