@@ -2,7 +2,7 @@
 
    Toolkit for WPF
 
-   Copyright (C) 2007-2024 Xceed Software Inc.
+   Copyright (C) 2007-2025 Xceed Software Inc.
 
    This program is provided to you under the terms of the XCEED SOFTWARE, INC.
    COMMUNITY LICENSE AGREEMENT (for non-commercial use) as published at 
@@ -383,6 +383,17 @@
         <CheckBox Grid.Row="5"
                   Grid.Column="5"
                   IsChecked="{Binding SelectedAxis.ShowAxisLabel, ElementName=_demo}"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Center"
+                  Margin="3" />
+        <TextBlock Text="Show Axis Pointer: "
+                   Grid.Row="6"
+                   Grid.Column="4"
+                   VerticalAlignment="Center"
+                   Margin="10,0,0,0" />
+        <CheckBox Grid.Row="6"
+                  Grid.Column="5"
+                  IsChecked="{Binding SelectedAxis.ShowAxisPointer, ElementName=_demo}"
                   HorizontalAlignment="Left"
                   VerticalAlignment="Center"
                   Margin="3" />

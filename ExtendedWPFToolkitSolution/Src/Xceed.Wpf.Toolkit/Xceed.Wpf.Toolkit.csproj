@@ -155,6 +155,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MaskedTextBox\Themes\Aero2.NormalColor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MaskedTextBox\Themes\HighContrast.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MaskedTextBox\Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Primitives\Themes\Aero2\SelectorItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -386,12 +398,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyVersionInfo.cs" />
-    <Compile Include="AssemblyVersionInfoCommon.cs" />
     <Compile Include="AutoSelectTextBox\Implementation\AutoSelectBehaviorEnum.cs" />
     <Compile Include="AutoSelectTextBox\Implementation\AutoSelectTextBox.cs" />
     <Compile Include="AutoSelectTextBox\Implementation\QueryMoveFocusEventArgs.cs" />
     <Compile Include="BusyIndicator\Implementation\BusyIndicator.cs" />
     <Compile Include="BusyIndicator\Implementation\Converters\ProgressBarWidthConverter.cs" />
+    <Compile Include="Chart\Converters\BooleanToTimeSpanConverter.cs" />
+    <Compile Include="Chart\Converters\InverseBooleanToDoubleConverter.cs" />
     <Compile Include="ColorPicker\Implementation\ColorPickerTabItem.cs" />
     <Compile Include="Core\Converters\ColorModeToTabItemSelectedConverter.cs" />
     <Compile Include="Core\Converters\PrintableFontFamilyConverter.cs" />
@@ -405,6 +418,7 @@
     <Compile Include="Primitives\SelectAllSelectorItem.cs" />
     <Compile Include="Primitives\SelectAllSelector.cs" />
     <Compile Include="PropertyGrid\Implementation\Attributes\CategoryPropertyOrderAttribute.cs" />
+    <Compile Include="PropertyGrid\Implementation\Converters\IsStringNullOrEmptyConverter.cs" />
     <Compile Include="PropertyGrid\Implementation\Converters\PropertyItemEditorConverter.cs" />
     <Compile Include="Core\LocationEnum.cs" />
     <Compile Include="IconButton\Implementation\IconButton.cs" />
@@ -1000,6 +1014,7 @@
   <ItemGroup>
     <Resource Include="PropertyGrid\Images\ClearFilter16_Green.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
