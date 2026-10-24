@@ -942,7 +942,7 @@
     <EmbeddedResource Include="Zoombox\Zoombox.Icon.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\..\Projects\JumonCoreLibrary\JumonCoreLibrary.csproj" />
+    <ProjectReference Include="..\..\..\..\..\..\Core\JumonCoreLibrary\JumonCoreLibrary.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="PropertyGrid\Images\SortAscending16_White.png" />
